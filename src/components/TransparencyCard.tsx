@@ -70,8 +70,8 @@ export function TransparencySheet({ open, onClose }: { open: boolean; onClose: (
           </div>
           <p className="mt-3 text-sm text-ink">
             On a {inr(monthly)}/mo SIP for 10 years, the lower direct fee leaves roughly{' '}
-            <span className="font-extrabold text-teal">{inr(feeGap)}</span> more in your pocket —
-            same fund, just no commission.
+            <span className="font-extrabold text-teal">{inr(feeGap)}</span> more in your pocket.
+            Same fund, just no commission.
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export function TransparencySheet({ open, onClose }: { open: boolean; onClose: (
           <p className="mt-2 text-sm text-ink">
             Investing the full {inr(invested80c)} into {elss.name} (an ELSS fund) can cut up to{' '}
             <span className="font-extrabold text-teal">{inr(taxSaved)}</span> off your tax under
-            Section 80C, old regime — while the money still compounds in equity. 3-year lock-in.
+            Section 80C, old regime, while the money still compounds in equity. 3-year lock-in.
           </p>
         </div>
 

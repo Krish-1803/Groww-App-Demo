@@ -28,10 +28,17 @@ export default function App() {
   const onboarded = useStore((s) => s.onboarded)
   const setInfo = useStore((s) => s.setInfo)
 
+  // Drive the theme from the document root so the backdrop and every surface
+  // (including anything outside the phone frame) flips together.
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+    document.documentElement.style.colorScheme = theme
+  }, [theme])
+
   const showOnboarding = genZ && !onboarded
 
   return (
-    <PhoneFrame dark={theme === 'dark'}>
+    <PhoneFrame>
       {showOnboarding ? (
         <div className="no-scrollbar h-full overflow-y-auto">
           <Onboarding />

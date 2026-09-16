@@ -93,7 +93,7 @@ export function Stocks() {
             <div className="flex flex-col items-center py-4 text-center">
               <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary/15 text-3xl">✅</div>
               <p className="text-lg font-bold text-ink">Order placed (mock)</p>
-              <p className="mt-1 text-sm text-muted">{qty} × {stock.symbol} at {inr(stock.price, 1)} — no real transaction.</p>
+              <p className="mt-1 text-sm text-muted">{qty} × {stock.symbol} at {inr(stock.price, 1)}. No real transaction.</p>
               <Button full className="mt-5" onClick={() => setBuy(null)}>Done</Button>
             </div>
           ) : (

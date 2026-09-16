@@ -1,4 +1,4 @@
-// Explore / "Groww Digest" feed — the standard-surface content tab shown when
+// Explore / "Groww Digest" feed: the standard-surface content tab shown when
 // Gen Z mode is OFF (Learn replaces it when the layer is on).
 
 import { useNavigate } from 'react-router-dom'
@@ -26,7 +26,7 @@ export function Explore() {
       <Card className="p-4">
         <p className="flex items-center gap-1.5 text-xs font-semibold text-teal"><TrendingUp size={14} /> Top of the day</p>
         <p className="mt-1 text-sm text-ink">
-          Markets are calm. If you have an active SIP, you’ve already done the hard part — showing up.
+          Markets are calm. If you have an active SIP, you’ve already done the hard part: showing up.
         </p>
       </Card>
 

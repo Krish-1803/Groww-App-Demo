@@ -22,17 +22,24 @@ export function TopBar({ onOpenInfo }: { onOpenInfo: () => void }) {
   return (
     <>
       <div className="sticky top-0 z-20 bg-canvas/95 pt-3 backdrop-blur">
-        <div className="flex items-center gap-2 px-4">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary text-white font-extrabold">
+        <div className="flex items-center gap-1.5 px-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary text-white font-extrabold shadow-soft">
             g
           </div>
-          <div className="flex flex-1 items-center gap-2 rounded-xl border border-line bg-card px-3 py-2">
-            <Search size={16} className="text-muted" />
+          <div className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-line bg-card px-3 py-2">
+            <Search size={16} className="shrink-0 text-muted" />
             <input
-              className="w-full bg-transparent text-sm text-ink placeholder:text-muted focus:outline-none"
-              placeholder="Search stocks, funds, IPOs"
+              className="w-full min-w-0 bg-transparent text-sm text-ink placeholder:text-muted focus:outline-none"
+              placeholder="Search"
             />
           </div>
+          <button
+            onClick={toggleTheme}
+            className="rounded-xl border border-line bg-card p-2 text-ink"
+            aria-label="Toggle theme"
+          >
+            {theme === 'light' ? <Moon size={17} /> : <Sun size={17} />}
+          </button>
           <button
             onClick={() => setNotif(true)}
             className="relative rounded-xl border border-line bg-card p-2 text-ink"
@@ -60,9 +67,9 @@ export function TopBar({ onOpenInfo }: { onOpenInfo: () => void }) {
         <div className="space-y-2">
           {[
             { t: '🔥 Streak alert', b: `You're on a ${streak}-month SIP streak. One more and you unlock the Disciplined badge.` },
-            { t: '💧 SIP due 5 Oct', b: 'Your ₹500 index SIP runs on the 5th. Nothing to do — it’s automatic.' },
+            { t: '💧 SIP due 5 Oct', b: 'Your ₹500 index SIP runs on the 5th. Nothing to do, it’s automatic.' },
             { t: '🧾 IPO update', b: 'Oravel (OYO) allotment status is available. Tap IPO to check.' },
-            { t: '📚 New Learn card', b: '“What F&O is — and why it’s risky” is live. 60 seconds + unlocks a product.' },
+            { t: '📚 New Learn card', b: '“What F&O is, and why it’s risky” is live. 60 seconds, unlocks a product.' },
           ].map((n, i) => (
             <div key={i} className="rounded-xl border border-line bg-canvas p-3">
               <p className="text-sm font-semibold text-ink">{n.t}</p>
@@ -83,7 +90,7 @@ export function TopBar({ onOpenInfo }: { onOpenInfo: () => void }) {
             </div>
           </div>
 
-          {/* Gen Z toggle — the switch that shows/hides the whole layer */}
+          {/* Gen Z toggle: the switch that shows/hides the whole layer */}
           <ToggleRow
             icon={<Zap size={18} className="text-teal" />}
             title="Gen Z mode"
@@ -103,7 +110,7 @@ export function TopBar({ onOpenInfo }: { onOpenInfo: () => void }) {
             <Fingerprint size={18} className="text-muted" />
             <div className="flex-1">
               <p className="text-sm font-semibold text-ink">Biometric app lock</p>
-              <p className="text-xs text-muted">Placeholder — no real auth in the prototype</p>
+              <p className="text-xs text-muted">Placeholder, no real auth in the prototype</p>
             </div>
             <span className="rounded-full bg-canvas px-2 py-0.5 text-[10px] font-semibold text-muted">On</span>
           </div>

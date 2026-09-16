@@ -22,10 +22,10 @@ export function BuddyFab() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="absolute bottom-[76px] right-4 z-30 flex items-center gap-1.5 rounded-full bg-ink px-4 py-3 text-white shadow-lift active:scale-95 transition"
+        className="absolute bottom-[76px] right-4 z-30 flex items-center gap-1.5 rounded-full bg-ink px-4 py-3 text-white shadow-lift active:scale-95 transition dark:bg-primary dark:text-[#06090f]"
         aria-label="Open Groww Buddy"
       >
-        <Sparkles size={18} className="text-primary" />
+        <Sparkles size={18} className="text-primary dark:text-[#06090f]" />
         <span className="text-sm font-semibold">Buddy</span>
       </button>
       <BuddyChat open={open} onClose={() => setOpen(false)} />
@@ -65,7 +65,7 @@ export function BuddyChat({ open, onClose }: { open: boolean; onClose: () => voi
     }>
       <div className="flex h-[62vh] flex-col">
         <p className="mb-2 rounded-lg bg-canvas px-3 py-2 text-[11px] text-muted">
-          A calm money coach — explains jargon, de-escalates panic, never gives buy/sell tips.
+          A calm money coach. Explains jargon, de-escalates panic, never gives buy/sell tips.
           {USE_LIVE_AI
             ? ' Live AI is ON (preview only).'
             : ' Live AI runs in preview; this link uses the built-in coach.'}

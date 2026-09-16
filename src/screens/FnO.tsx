@@ -53,18 +53,18 @@ export function FnO() {
           <h1 className="flex items-center gap-2 text-xl font-extrabold text-ink">
             F&O <Lock size={16} className="text-warn" />
           </h1>
-          <p className="text-xs text-muted">Locked by default — this is speculation, not investing.</p>
+          <p className="text-xs text-muted">Locked by default. This is speculation, not investing.</p>
         </div>
       </div>
 
-      {/* Step 1 — reality check + checkbox */}
+      {/* Step 1: reality check + checkbox */}
       <StepBlock n={1} title="Reality check" done={fno.acknowledgedRisk}>
         <div className="rounded-2xl bg-danger/[0.07] p-4">
           <p className="flex items-center gap-2 font-bold text-danger">
             <AlertTriangle size={18} /> ~9 in 10 individual F&O traders lose money
           </p>
           <p className="mt-1.5 text-sm text-muted">
-            That’s from SEBI’s own study — the average loser lost over ₹1 lakh. F&O uses leverage, so
+            That’s from SEBI’s own study, where the average loser lost over ₹1 lakh. F&O uses leverage, so
             losses can pile up faster than any SIP builds wealth.
           </p>
         </div>
@@ -87,17 +87,17 @@ export function FnO() {
         )}
       </StepBlock>
 
-      {/* Step 2 — 3-question quiz */}
+      {/* Step 2: 3-question quiz */}
       <StepBlock n={2} title="3-question quiz" done={fno.quizPassed} locked={!fno.acknowledgedRisk}>
         {fno.acknowledgedRisk && !fno.quizPassed && <FnoQuiz onPass={passQuiz} />}
         {fno.quizPassed && (
           <p className="flex items-center gap-1.5 text-sm font-semibold text-positive">
-            <Check size={16} /> Passed — you clearly understand the risks
+            <Check size={16} /> Passed. You clearly understand the risks.
           </p>
         )}
       </StepBlock>
 
-      {/* Step 3 — 24h cooling-off */}
+      {/* Step 3: 24h cooling-off */}
       <StepBlock n={3} title="24-hour cooling-off" done={cooloffDone(fno.cooloffUntil)} locked={!fno.quizPassed}>
         {fno.quizPassed && (
           <CoolingOff
@@ -205,7 +205,7 @@ function FnoQuiz({ onPass }: { onPass: () => void }) {
       ))}
       {submitted && !allCorrect ? (
         <div className="rounded-xl bg-danger/10 p-3 text-sm text-ink">
-          Some answers are off — review them above, then try again. This gate exists for a reason.
+          Some answers are off. Review them above, then try again. This gate exists for a reason.
           <Button variant="outline" size="sm" full className="mt-2" onClick={() => { setSubmitted(false); setAnswers([null, null, null]) }}>
             Retry quiz
           </Button>
@@ -312,7 +312,7 @@ function FnoUnlocked({
         </button>
         <div>
           <h1 className="flex items-center gap-2 text-xl font-extrabold text-ink">F&O <Unlock size={15} className="text-positive" /></h1>
-          <p className="text-xs text-muted">Unlocked. Trade responsibly — the odds don’t change.</p>
+          <p className="text-xs text-muted">Unlocked. Trade responsibly, the odds don’t change.</p>
         </div>
       </div>
 

@@ -30,7 +30,7 @@ function statusOf(g: Goal): { label: string; ok: boolean } {
   const remaining = Math.max(0, g.target - g.saved)
   const monthsNeeded = monthsForTarget(remaining, g.monthlySip)
   const ok = monthsNeeded <= g.targetMonths
-  return { label: ok ? 'On track' : 'Behind — bump SIP', ok }
+  return { label: ok ? 'On track' : 'Behind, bump SIP', ok }
 }
 
 export function Goals() {
@@ -54,7 +54,7 @@ export function Goals() {
         <EmptyState
           illustration={<Target size={54} strokeWidth={1.5} />}
           title="No goals yet"
-          body="Name something you want — a trip, a phone, freedom — and we’ll back-solve the monthly SIP."
+          body="Name something you want (a trip, a phone, freedom) and we’ll back-solve the monthly SIP."
           action={<Button onClick={() => setCreateOpen(true)}><Plus size={16} /> Create a goal</Button>}
         />
       ) : (

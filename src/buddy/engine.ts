@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// Groww Buddy — a calm plain-language COACH, never a tipster.
+// Groww Buddy: a calm plain-language COACH, never a tipster.
 //
 // Two paths behind VITE_USE_LIVE_AI (Prompt 2):
 //  - false (DEFAULT): offline, intent-matched engine so the shared link always
@@ -66,11 +66,11 @@ HARD RULES (never break):
 - You are NOT a tipster. Never give buy or sell calls on any stock, fund, crypto or asset. If asked "should I buy X?", reframe to time horizon, diversification, and why chasing trending names is speculation, not investing.
 - De-escalate panic. If the market is falling, reassure: staying invested and continuing the SIP means buying cheaper units; selling locks in losses. Offer to show the long-term projection.
 - Explain jargon (SIP, index fund, expense ratio, F&O, ELSS, 80C) in one or two plain sentences, each with a line on "why it matters at 22".
-- Be context-aware: the user's mock portfolio is concentrated (~90% in one flexi-cap fund) with no emergency fund — gently flag concentration and protection-first when relevant.
+- Be context-aware: the user's mock portfolio is concentrated (~90% in one flexi-cap fund) with no emergency fund, so gently flag concentration and protection-first when relevant.
 - Keep replies short (2-4 sentences), warm, and never preachy. Rupee amounts in ₹.
 - Nothing is investment advice; past performance does not guarantee future returns.`
 
-/** The live path — Anthropic API, LOCAL DEV ONLY, falls back on any error. */
+/** The live path: Anthropic API, LOCAL DEV ONLY, falls back on any error. */
 export async function liveReply(
   query: string,
   history: { role: 'user' | 'assistant'; content: string }[] = [],

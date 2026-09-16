@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
-// ONE mock dataset — the single source of truth shared by the standard Groww
-// surface AND the Gen Z layer, so numbers match everywhere. Nothing here is
+// ONE mock dataset: the single source of truth shared by the standard Groww
+// surface and the Gen Z layer, so numbers match everywhere. Nothing here is
 // real: no live prices, no KYC, no transactions.
 // ---------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ import type {
 } from './types'
 
 export const COMPLIANCE_LINE =
-  'Not investment advice · past performance ≠ future returns'
+  'Not investment advice. Past performance is no guarantee of future returns.'
 
 // Assumption stated up-front (used in every projection).
 export const RETURN_ASSUMPTION = 0.12 // 12% p.a. long-term equity assumption
@@ -238,7 +238,7 @@ export const LEARN_CARDS: LearnCard[] = [
     readSeconds: 55,
     xp: 20,
     body: [
-      'A SIP just means you invest a fixed amount on a fixed date — say ₹500 every month — instead of trying to time the market.',
+      'A SIP just means you invest a fixed amount on a fixed date, say ₹500 every month, instead of trying to time the market.',
       'Because the amount is fixed, you buy more units when prices are low and fewer when high. That averaging is the whole trick.',
       'Why it matters at 22: your biggest edge is time, not a big ticket. ₹500/mo started now beats ₹5,000/mo started at 32.',
     ],
@@ -257,7 +257,7 @@ export const LEARN_CARDS: LearnCard[] = [
     readSeconds: 60,
     xp: 20,
     body: [
-      'An index fund simply copies a basket like the Nifty 50 — low cost, no fund manager guessing.',
+      'An index fund simply copies a basket like the Nifty 50. Low cost, no fund manager guessing.',
       'An active fund pays a manager to try to beat the index. Sometimes they do; the higher fee (expense ratio) is certain, the outperformance is not.',
       'Why it matters at 22: a 1% higher fee for 20 years can quietly eat a big slice of your corpus. Start cheap and boring.',
     ],
@@ -290,13 +290,13 @@ export const LEARN_CARDS: LearnCard[] = [
   {
     id: 'what-is-fno',
     emoji: '⚠️',
-    title: 'What F&O is — and why it is risky',
+    title: 'What F&O is, and why it is risky',
     category: 'Risk',
     readSeconds: 60,
     xp: 25,
     unlocks: 'fno',
     body: [
-      'F&O (Futures & Options) are leveraged contracts. Leverage means small moves are multiplied — up AND down.',
+      'F&O (Futures & Options) are leveraged contracts. Leverage means small moves get multiplied, up and down.',
       'SEBI’s own study found roughly 9 in 10 individual F&O traders lose money, and the average loser lost over ₹1 lakh.',
       'Why it matters at 22: this is speculation, not investing. If you are still building an emergency fund, F&O can undo years of SIPs in weeks.',
     ],
@@ -316,7 +316,7 @@ export const LEARN_CARDS: LearnCard[] = [
     xp: 20,
     body: [
       'ELSS funds are equity funds that also cut your taxable income under Section 80C (old regime), up to ₹1.5L a year.',
-      'They have the shortest lock-in of all 80C options — just 3 years — and can invest from as little as ₹500 a SIP.',
+      'They have the shortest lock-in of all 80C options, just 3 years, and you can invest from as little as ₹500 a SIP.',
       'Why it matters at 22: your first job’s tax can be trimmed while your money still compounds in equity. Two wins, one product.',
     ],
     quiz: {
@@ -336,7 +336,7 @@ export const LEARN_CARDS: LearnCard[] = [
     body: [
       'Concentration is when most of your money sits in a single fund or stock. One bad year hits your whole corpus.',
       'Spreading across an index + a flexi-cap + some debt smooths the ride without needing you to predict anything.',
-      'Why it matters at 22: you can’t out-pick the market yet — but you can refuse to bet everything on one square.',
+      'Why it matters at 22: you can’t out-pick the market yet, but you can refuse to bet everything on one square.',
     ],
     quiz: {
       question: 'Diversification mainly reduces…',
@@ -349,10 +349,10 @@ export const LEARN_CARDS: LearnCard[] = [
 
 // --- Community (compliance-safe, aggregated, NO tips) -------------------
 export const COMMUNITY_STATS: CommunityStat[] = [
-  { label: 'Investors aged 20–26 on Groww', value: '1 in 3', sub: 'of all new accounts this year' },
+  { label: 'Investors aged 20-26 on Groww', value: '1 in 3', sub: 'of all new accounts this year' },
   { label: 'Most-started first SIP', value: '₹500', sub: 'median monthly ticket for your age' },
   { label: 'Have an active SIP streak', value: '61%', sub: 'of Gen Z investors, 3+ months' },
-  { label: 'Top first-fund CATEGORY', value: 'Index funds', sub: 'not a specific fund — a category' },
+  { label: 'Top first-fund CATEGORY', value: 'Index funds', sub: 'a category, not a specific fund' },
 ]
 
 export const THEME_BASKETS: ThemeBasket[] = [
@@ -381,9 +381,9 @@ export const THEME_BASKETS: ThemeBasket[] = [
 
 // --- IPOs ---------------------------------------------------------------
 export const IPOS: Ipo[] = [
-  { id: 'ipo-swiggy', name: 'Swiggy Ltd', priceBand: '₹371 – ₹390', lotSize: 38, status: 'Open', closeDate: '18 Sep', gmpNote: 'Grey-market chatter is not a signal — ignore it.' },
-  { id: 'ipo-nsdl', name: 'NSDL', priceBand: '₹760 – ₹800', lotSize: 18, status: 'Upcoming', closeDate: '24 Sep', gmpNote: 'Read the RHP risk factors before applying.' },
-  { id: 'ipo-oyo', name: 'Oravel (OYO)', priceBand: '₹430 – ₹455', lotSize: 32, status: 'Closed', closeDate: '2 Sep', gmpNote: 'Allotment out — check status.', applied: true, allotment: 'Pending' },
+  { id: 'ipo-swiggy', name: 'Swiggy Ltd', priceBand: '₹371 - ₹390', lotSize: 38, status: 'Open', closeDate: '18 Sep', gmpNote: 'Grey-market chatter is not a signal. Ignore it.' },
+  { id: 'ipo-nsdl', name: 'NSDL', priceBand: '₹760 - ₹800', lotSize: 18, status: 'Upcoming', closeDate: '24 Sep', gmpNote: 'Read the RHP risk factors before applying.' },
+  { id: 'ipo-oyo', name: 'Oravel (OYO)', priceBand: '₹430 - ₹455', lotSize: 32, status: 'Closed', closeDate: '2 Sep', gmpNote: 'Allotment is out. Check your status.', applied: true, allotment: 'Pending' },
 ]
 
 // --- Groww Buddy scripted answers (offline engine seed) -----------------
@@ -393,87 +393,87 @@ export const BUDDY_ANSWERS: BuddyAnswer[] = [
     id: 'greeting',
     intents: ['hi', 'hello', 'hey', 'start', 'help'],
     answer:
-      "Hey! I'm Groww Buddy — your calm money coach, not a tipster. I won't tell you what to buy or sell, but I'll happily explain any term, talk you off a panic-ledge, or sanity-check your plan. What's on your mind?",
+      "Hey! I'm Groww Buddy, your calm money coach (not a tipster). I won't tell you what to buy or sell, but I'll happily explain any term, talk you off a panic-ledge, or sanity-check your plan. What's on your mind?",
     chips: ['What is a SIP?', 'Should I buy Zomato?', 'Market is crashing', 'Explain expense ratio'],
   },
   {
     id: 'buy-call',
     intents: ['should i buy', 'buy this', 'good stock', 'which stock', 'buy zomato', 'buy reliance', 'tip', 'multibagger', 'hot stock', 'sell'],
     answer:
-      "I can't give buy or sell calls — that's a promise, not a dodge. Chasing a single trending stock is speculation, not investing. The better questions: what's your time horizon, and is your money spread out? If you're investing for years, a diversified SIP beats betting on one name you saw in a reel. Want me to show your long-term projection instead?",
+      "I can't give buy or sell calls. That's a promise, not a dodge. Chasing a single trending stock is speculation, not investing. The better questions: what's your time horizon, and is your money spread out? If you're investing for years, a diversified SIP beats betting on one name you saw in a reel. Want me to show your long-term projection instead?",
     chips: ['Show my projection', 'Why is diversification safer?', 'What should a beginner do?'],
   },
   {
     id: 'panic',
     intents: ['crash', 'crashing', 'falling', 'red', 'panic', 'should i sell', 'market down', 'losing money', 'scared', 'stop sip'],
     answer:
-      "Deep breath — this is normal. Markets fall about 1 year in 4, then recover. Selling now locks in the loss; staying invested and keeping your SIP means you're actually buying cheaper units this month. The people who do well are boringly consistent, not reactive. Want to see how your ₹500/mo looks over 10 years instead of today?",
+      "Deep breath. This is normal. Markets fall about 1 year in 4, then recover. Selling now locks in the loss; staying invested and keeping your SIP means you're actually buying cheaper units this month. The people who do well are boringly consistent, not reactive. Want to see how your ₹500/mo looks over 10 years instead of today?",
     chips: ['Show 10-year projection', 'Should I pause my SIP?', 'Why not just sell?'],
   },
   {
     id: 'concentration',
     intents: ['diversif', 'one fund', 'concentrated', 'too much', 'risky portfolio', 'spread', 'all in one'],
     answer:
-      "Good instinct to ask. Right now a big chunk of your portfolio sits in a single flexi-cap fund — that's concentration. It's not 'wrong', but one bad year for that fund hits almost everything you own. Adding an index fund and a bit of debt spreads the risk without you needing to predict anything. Want the plain version of how to rebalance a small portfolio?",
+      "Good instinct to ask. Right now a big chunk of your portfolio sits in a single flexi-cap fund, and that's concentration. It's not 'wrong', but one bad year for that fund hits almost everything you own. Adding an index fund and a bit of debt spreads the risk without you needing to predict anything. Want the plain version of how to rebalance a small portfolio?",
     chips: ['How do I rebalance?', 'What is an index fund?', 'Show my portfolio'],
   },
   {
     id: 'sip',
     intents: ['what is sip', 'sip mean', 'systematic', 'define sip'],
     answer:
-      "A SIP is just investing a fixed amount on a fixed date — like ₹500 every month — instead of timing the market. You automatically buy more units when prices dip and fewer when they're high. Why it matters at 22: consistency plus time is your superpower; you don't need a big ticket to start.",
+      "A SIP is just investing a fixed amount on a fixed date, like ₹500 every month, instead of timing the market. You automatically buy more units when prices dip and fewer when they're high. Why it matters at 22: consistency plus time is your superpower, and you don't need a big ticket to start.",
     chips: ['Start a ₹500 SIP', 'SIP vs lump sum?', 'What is rupee-cost averaging?'],
   },
   {
     id: 'index',
     intents: ['index fund', 'what is index', 'nifty fund', 'passive'],
     answer:
-      "An index fund copies a basket like the Nifty 50 — no manager guessing, very low fee. It won't beat the market, it just is the market, cheaply. Why it matters at 22: low costs compound in your favour over decades, and you skip the stress of picking winners.",
+      "An index fund copies a basket like the Nifty 50: no manager guessing, very low fee. It won't beat the market, it just is the market, cheaply. Why it matters at 22: low costs compound in your favour over decades, and you skip the stress of picking winners.",
     chips: ['Index vs active?', 'What is expense ratio?', 'Is it safe?'],
   },
   {
     id: 'expense-ratio',
     intents: ['expense ratio', 'fee', 'cost of fund', 'direct vs regular', 'commission'],
     answer:
-      "The expense ratio is a fund's yearly fee, shown as a % of your money. A 'direct' plan skips distributor commission, so it's cheaper than the 'regular' plan for the exact same fund. On Groww, mutual funds are direct — same fund, lower fee, more return stays yours. Over 20 years even a 1% gap is a lot.",
+      "The expense ratio is a fund's yearly fee, shown as a % of your money. A 'direct' plan skips distributor commission, so it's cheaper than the 'regular' plan for the exact same fund. On Groww, mutual funds are direct: same fund, lower fee, more return stays yours. Over 20 years even a 1% gap is a lot.",
     chips: ['Show what I actually pay', 'What is a direct plan?', 'How much does 1% matter?'],
   },
   {
     id: 'fno',
     intents: ['f&o', 'fno', 'futures', 'options', 'leverage', 'derivatives', 'intraday'],
     answer:
-      "F&O = Futures & Options — leveraged contracts where small moves get multiplied both ways. SEBI found roughly 9 in 10 individual F&O traders lose money. It's speculation, not investing. If you're still building an emergency fund, this can undo years of SIPs fast. That's why it's locked here until you pass a short reality-check quiz.",
+      "F&O stands for Futures & Options: leveraged contracts where small moves get multiplied both ways. SEBI found roughly 9 in 10 individual F&O traders lose money. It's speculation, not investing. If you're still building an emergency fund, this can undo years of SIPs fast. That's why it's locked here until you pass a short reality-check quiz.",
     chips: ['Why is it locked?', 'What is leverage?', 'What should I do instead?'],
   },
   {
     id: 'elss',
     intents: ['elss', '80c', 'tax saving', 'tax save', 'save tax'],
     answer:
-      "ELSS funds are equity funds that also cut your taxable income under Section 80C (old regime), up to ₹1.5L a year, with just a 3-year lock-in — the shortest of the 80C options. Why it matters at 22: your first salary's tax gets trimmed while the money still compounds in equity.",
+      "ELSS funds are equity funds that also cut your taxable income under Section 80C (old regime), up to ₹1.5L a year, with just a 3-year lock-in (the shortest of the 80C options). Why it matters at 22: your first salary's tax gets trimmed while the money still compounds in equity.",
     chips: ['See the 80C nudge', 'What is a lock-in?', 'How much can I save?'],
   },
   {
     id: 'emergency',
     intents: ['emergency fund', 'protection', 'safety net', 'how much emergency'],
     answer:
-      "An emergency fund is 3–6 months of expenses kept somewhere safe and boring (like a liquid fund), so a job gap or a hospital bill doesn't force you to sell your investments at the worst time. Build this before F&O or aggressive bets. It's the least exciting and most important money you'll ever park.",
+      "An emergency fund is 3 to 6 months of expenses kept somewhere safe and boring (like a liquid fund), so a job gap or a hospital bill doesn't force you to sell your investments at the worst time. Build this before F&O or aggressive bets. It's the least exciting and most important money you'll ever park.",
     chips: ['Start emergency goal', 'Where do I keep it?', 'Why before investing?'],
   },
   {
     id: 'beginner',
     intents: ['beginner', 'where do i start', 'new to this', 'first time', 'how to start', 'what should i do'],
     answer:
-      "Simple, boring, and started-today beats clever-and-later. A common first setup: a small SIP into an index fund, a bit into a flexi-cap, and slowly build an emergency cushion in a liquid fund. Take the 4-question quiz and I'll help set a starter portfolio — no jargon, no pressure.",
+      "Simple, boring, and started-today beats clever-and-later. A common first setup: a small SIP into an index fund, a bit into a flexi-cap, and slowly build an emergency cushion in a liquid fund. Take the 4-question quiz and I'll help set a starter portfolio. No jargon, no pressure.",
     chips: ['Take the quiz', 'Start a ₹500 SIP', 'What is an index fund?'],
   },
   {
     id: 'projection',
     intents: ['projection', 'how much will i have', 'future value', '10 year', 'compound'],
     answer:
-      "Here's the honest math (assuming a 12% long-term return, which isn't guaranteed): ₹500/mo for 10 years is ₹60,000 invested that could grow to around ₹1.15 lakh — the extra is compounding doing the heavy lifting. Stretch it to 20 years and it's roughly ₹5 lakh. Time in the market is the whole game.",
+      "Here's the honest math (assuming a 12% long-term return, which isn't guaranteed): ₹500/mo for 10 years is ₹60,000 invested that could grow to around ₹1.15 lakh, and the extra is compounding doing the heavy lifting. Stretch it to 20 years and it's roughly ₹5 lakh. Time in the market is the whole game.",
     chips: ['Start a ₹500 SIP', 'What if I invest more?', 'Is 12% guaranteed?'],
   },
 ]
 
 export const BUDDY_FALLBACK =
-  "I want to give you a straight answer, but I'd rather not guess. I'm best at explaining terms (SIP, index fund, expense ratio, F&O, ELSS), calming market-panic nerves, and sanity-checking your plan — never buy/sell tips. Try one of these, or rephrase?"
+  "I want to give you a straight answer, but I'd rather not guess. I'm best at explaining terms (SIP, index fund, expense ratio, F&O, ELSS), calming market-panic nerves, and sanity-checking your plan. I never give buy/sell tips. Try one of these, or rephrase?"

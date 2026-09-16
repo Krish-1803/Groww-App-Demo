@@ -25,7 +25,7 @@ const QUESTIONS: Q[] = [
     options: [
       { label: 'Panic-sell everything', score: 0 },
       { label: 'Feel uneasy, but hold', score: 1 },
-      { label: 'Shrug — it’s long-term', score: 2 },
+      { label: 'Shrug, it’s long-term', score: 2 },
       { label: 'Invest more, it’s on sale', score: 3 },
     ],
   },
@@ -33,8 +33,8 @@ const QUESTIONS: Q[] = [
     q: 'What are you really investing for?',
     emoji: '🎯',
     options: [
-      { label: 'Safety — don’t lose my money', score: 0 },
-      { label: 'A goal in 2–4 years', score: 1 },
+      { label: 'Safety, don’t lose my money', score: 0 },
+      { label: 'A goal in 2 to 4 years', score: 1 },
       { label: 'Long-term wealth (10y+)', score: 2 },
       { label: 'Max growth, I’m young', score: 3 },
     ],
@@ -153,7 +153,7 @@ export function Onboarding() {
             ))}
           </div>
           <p className="mt-auto pt-6 text-center text-[11px] text-muted">
-            No right answers — this just tunes your starter mix.
+            No right answers. This just tunes your starter mix.
           </p>
         </div>
       ) : !started ? (
@@ -168,7 +168,7 @@ export function Onboarding() {
               ? 'You value stability. We’ll start you slow and steady.'
               : profile === 'Balanced'
                 ? 'A mix of growth and calm suits you best.'
-                : 'You’ve got time and appetite — we’ll tilt toward growth.'}
+                : 'You’ve got time and appetite, so we’ll tilt toward growth.'}
           </p>
 
           <div className="rounded-2xl border border-line bg-card p-4 shadow-card">
@@ -213,7 +213,7 @@ export function Onboarding() {
           <h1 className="text-2xl font-extrabold text-ink">You’re investing! 🎉</h1>
           <p className="mt-2 max-w-[280px] text-sm text-muted">
             Your first ₹500 SIP into {fundById('nifty50-index').name} is set for the 5th. That’s the
-            whole game — showing up monthly.
+            whole game: showing up monthly.
           </p>
           <div className="mt-5 flex items-center gap-2 rounded-full bg-card px-4 py-2 shadow-card">
             <ShieldCheck size={16} className="text-positive" />

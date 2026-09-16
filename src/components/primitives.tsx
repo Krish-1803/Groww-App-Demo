@@ -246,7 +246,7 @@ export function Card({
     <div
       onClick={onClick}
       className={cx(
-        'rounded-2xl bg-card shadow-card border border-line/60',
+        'theme-surface rounded-2xl bg-card shadow-card border border-line/60',
         onClick && 'cursor-pointer active:scale-[0.99] transition',
         className,
       )}

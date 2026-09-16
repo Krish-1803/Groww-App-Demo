@@ -53,7 +53,7 @@ export function Sheet({
       {/* scrim */}
       <div
         className={cx(
-          'absolute inset-0 bg-ink/40 backdrop-blur-[1px] transition-opacity',
+          'absolute inset-0 bg-black/50 backdrop-blur-[1px] transition-opacity',
           open ? 'opacity-100' : 'opacity-0',
         )}
         onClick={onClose}

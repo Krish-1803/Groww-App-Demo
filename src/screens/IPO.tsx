@@ -68,7 +68,7 @@ export function IPO() {
               )}
               {ipo.applied && ipo.allotment && ipo.allotment !== 'Pending' && (
                 <div className={cx('rounded-xl p-3 text-center text-sm font-semibold', ipo.allotment === 'Allotted' ? 'bg-positive/10 text-positive' : 'bg-danger/10 text-danger')}>
-                  {ipo.allotment === 'Allotted' ? '🎉 Allotted! Shares credited (mock)' : 'Not allotted — refund initiated (mock)'}
+                  {ipo.allotment === 'Allotted' ? '🎉 Allotted! Shares credited (mock)' : 'Not allotted. Refund initiated (mock)'}
                 </div>
               )}
             </div>

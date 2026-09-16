@@ -121,7 +121,7 @@ function FundDetail({ fundId, onInvest }: { fundId: string; onInvest: () => void
       <div className="rounded-xl bg-primary/[0.06] p-3">
         <p className="text-xs text-muted">
           <span className="font-semibold text-teal">Direct plan on Groww:</span> the regular plan of the
-          same fund charges {f.expenseRatioRegular}% — you skip that commission here.
+          same fund charges {f.expenseRatioRegular}%, and you skip that commission here.
         </p>
       </div>
       <ComplianceLine />

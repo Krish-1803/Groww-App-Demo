@@ -1,4 +1,4 @@
-// "Cooling off for today" guardrail — shown when a 4th simulated trade/day is
+// "Cooling off for today" guardrail, shown when a 4th simulated trade/day is
 // attempted. Supportive tone + a one-tap route to Buddy. Dev skip resets count.
 
 import { useState } from 'react'
@@ -22,9 +22,9 @@ export function OvertradeModal({ open, onClose }: { open: boolean; onClose: () =
             <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-warn/15">
               <Coffee size={30} className="text-warn" />
             </div>
-            <p className="text-lg font-bold text-ink">That’s 3 trades today — let’s pause</p>
+            <p className="text-lg font-bold text-ink">That’s 3 trades today. Let’s pause.</p>
             <p className="mt-1 text-sm text-muted">
-              Rapid trading is how first-timers turn investing into gambling. Nothing’s wrong right now —
+              Rapid trading is how first-timers turn investing into gambling. Nothing’s wrong right now,
               this is just a breather. Your SIPs keep running regardless.
             </p>
           </div>

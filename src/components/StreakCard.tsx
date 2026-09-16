@@ -1,4 +1,4 @@
-// SIP streak habit engine — framed on DISCIPLINE, not trade frequency.
+// SIP streak habit engine, framed on DISCIPLINE, not trade frequency.
 
 import { Flame } from 'lucide-react'
 import { useStore } from '../store/useStore'
@@ -57,7 +57,7 @@ export function StreakCard() {
         <p className="mt-1.5 text-[11px] text-muted">
           {nextBadge.at - streak > 0
             ? `${nextBadge.at - streak} more month${nextBadge.at - streak === 1 ? '' : 's'} to “${nextBadge.label}” ${nextBadge.emoji}`
-            : 'Top badge unlocked — legend. 👑'}
+            : 'Top badge unlocked. Legend. 👑'}
         </p>
       </div>
     </Card>

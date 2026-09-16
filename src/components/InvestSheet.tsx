@@ -59,7 +59,7 @@ export function InvestSheet({
             {mode === 'sip'
               ? `Next instalment: 5 Oct into ${fund.name}.`
               : `Added to your holdings in ${fund.name}.`}{' '}
-            (Mock — no real payment.)
+            (Mock, no real payment.)
           </p>
           <Button full className="mt-5" onClick={close}>
             Great

@@ -1,5 +1,5 @@
-// "Protection first" nudge — returns after 3 sessions while the emergency fund
-// is still ₹0. Supportive, never nannying; dismissible; one tap to start.
+// "Protection first" nudge that returns after 3 sessions while the emergency
+// fund is still ₹0. Supportive, never nannying; dismissible; one tap to start.
 
 import { useState } from 'react'
 import { ShieldCheck, X } from 'lucide-react'
@@ -28,7 +28,7 @@ export function ProtectionNudge() {
           <p className="text-sm font-bold text-ink">Protection first 🛟</p>
           <p className="mt-0.5 text-xs text-muted">
             Your emergency fund is still ₹0. Before chasing returns, a small safety cushion means a
-            surprise bill never forces you to sell. No pressure — just a nudge.
+            surprise bill never forces you to sell. No pressure, just a nudge.
           </p>
           <button
             onClick={() => navigate('/goals')}

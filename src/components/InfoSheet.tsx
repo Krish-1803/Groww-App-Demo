@@ -25,11 +25,11 @@ export function InfoSheet() {
 
         <div className="space-y-2.5">
           {[
-            'Mock data only — prices, NAVs, P&L and IPO status are illustrative.',
+            'Mock data only: prices, NAVs, P&L and IPO status are illustrative.',
             'No real KYC / AML, no UPI or payment rails, no order routing.',
-            'Projections assume a 12% p.a. long-term return — not a guarantee.',
+            'Projections assume a 12% p.a. long-term return, not a guarantee.',
             '“Gen Z mode” is a layer on the standard Groww surface, not a separate app.',
-            'Groww Buddy never gives buy/sell tips — it’s a coach, not a tipster.',
+            'Groww Buddy never gives buy/sell tips. It’s a coach, not a tipster.',
           ].map((t, i) => (
             <div key={i} className="flex items-start gap-2.5">
               <CheckCircle2 size={17} className="mt-0.5 shrink-0 text-positive" />
@@ -40,7 +40,7 @@ export function InfoSheet() {
 
         <p className="text-[11px] leading-relaxed text-muted">
           Built as a Product-Intern assignment concept: retention + responsible investing for
-          first-time investors aged 20–26. Not affiliated with, or endorsed by, Groww.
+          first-time investors aged 20 to 26. Not affiliated with, or endorsed by, Groww.
         </p>
 
         <Button full onClick={() => setInfo(false)}>

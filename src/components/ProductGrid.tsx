@@ -1,5 +1,5 @@
 // The standard Groww product grid. Tiles with dedicated screens navigate;
-// the rest open a generic product sheet with mock detail — so every tile does
+// the rest open a generic product sheet with mock detail, so every tile does
 // something.
 
 import { useState } from 'react'
@@ -38,14 +38,14 @@ export function ProductGrid() {
 
   const products: Product[] = [
     { key: 'stocks', label: 'Stocks', icon: TrendingUp, route: '/stocks', blurb: 'Buy & sell listed shares. Flat ₹20 per order.' },
-    { key: 'fno', label: 'F&O', icon: CandlestickChart, route: '/fno', locked: !fnoUnlocked, blurb: 'Futures & Options. High risk — locked until you pass a reality check.' },
+    { key: 'fno', label: 'F&O', icon: CandlestickChart, route: '/fno', locked: !fnoUnlocked, blurb: 'Futures & Options. High risk, locked until you pass a reality check.' },
     { key: 'mf', label: 'Mutual Funds', icon: Layers, route: '/mutual-funds', blurb: 'Direct, zero-commission funds. SIP from ₹100.' },
     { key: 'us', label: 'US Stocks', icon: Globe, blurb: 'Invest in Apple, Google & more via mock USD wallet.' },
     { key: 'ipo', label: 'IPO', icon: Rocket, route: '/ipo', blurb: 'Apply to new listings and track allotment.' },
     { key: 'gold', label: 'Gold / SGB', icon: Coins, blurb: 'Digital gold & Sovereign Gold Bonds from ₹10.' },
     { key: 'fd', label: 'FDs', icon: PiggyBank, blurb: 'Fixed deposits up to 8.6% p.a. (mock partners).' },
     { key: 'bonds', label: 'Bonds', icon: Landmark, blurb: 'Govt & corporate bonds for steady income.' },
-    { key: 'etf', label: 'ETFs', icon: LineChart, blurb: 'Exchange-traded funds — index exposure, live-traded.' },
+    { key: 'etf', label: 'ETFs', icon: LineChart, blurb: 'Exchange-traded funds: index exposure, live-traded.' },
     { key: 'mtf', label: 'MTF', icon: Banknote, blurb: 'Margin Trading Facility. Borrowing to trade adds risk.' },
   ]
 

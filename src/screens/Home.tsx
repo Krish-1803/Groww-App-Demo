@@ -100,7 +100,7 @@ export function Home() {
         </>
       )}
 
-      {/* Product grid — the standard Groww surface */}
+      {/* Product grid: the standard Groww surface */}
       <div>
         <SectionTitle>Invest in</SectionTitle>
         <ProductGrid />
@@ -164,7 +164,7 @@ export function Home() {
         </>
       )}
 
-      {/* Groww Digest — base surface explore feed teaser */}
+      {/* Groww Digest: base surface explore feed teaser */}
       <div>
         <SectionTitle action={<button onClick={() => navigate(genZ ? '/learn' : '/explore')} className="text-xs font-semibold text-teal">More</button>}>
           Groww Digest

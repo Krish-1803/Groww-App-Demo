@@ -48,7 +48,7 @@ export function Community() {
           <Card className="flex items-start gap-3 border-primary/30 bg-primary/[0.05] p-4">
             <Users size={20} className="mt-0.5 shrink-0 text-teal" />
             <p className="text-xs text-muted">
-              We only ever show <span className="font-semibold text-ink">aggregated categories</span> —
+              We only ever show <span className="font-semibold text-ink">aggregated categories</span>,
               never “buy this fund”. What thousands of peers do is data, not advice.
             </p>
           </Card>
