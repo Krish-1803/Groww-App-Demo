@@ -27,7 +27,7 @@ export function BottomTabs() {
 
   return (
     <nav className="sticky bottom-0 z-20 border-t border-line bg-card/95 backdrop-blur">
-      <div className="flex items-stretch justify-around px-1 pb-[max(0.35rem,env(safe-area-inset-bottom))] pt-1.5">
+      <div className="flex items-stretch justify-around px-1 pb-[max(0.35rem,env(safe-area-inset-bottom))] pt-1.5 sm:pb-4">
         {tabs.map((t) => {
           const Icon = t.icon
           return (

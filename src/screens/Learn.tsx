@@ -7,6 +7,7 @@ import { BookOpen, Check, ChevronRight, Clock, Lock, Sparkles, X } from 'lucide-
 import { useStore } from '../store/useStore'
 import type { LearnCard } from '../mock/types'
 import { LEARN_CARDS } from '../mock/data'
+import { learnIcon } from '../lib/icons'
 import { cx } from '../lib/utils'
 import { Sheet } from '../components/Sheet'
 import { Button, Card } from '../components/primitives'
@@ -31,7 +32,9 @@ export function Learn() {
 
       {/* daily streak strip */}
       <Card className="flex items-center gap-3 p-4">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-warn/15 text-2xl">📚</div>
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-warn/15 text-warn">
+          <BookOpen size={20} />
+        </div>
         <div className="flex-1">
           <p className="text-sm font-bold text-ink">Daily 2-min streak</p>
           <p className="text-xs text-muted">{doneCount} of {LEARN_CARDS.length} cards done today</p>
@@ -49,11 +52,12 @@ export function Learn() {
       <div className="space-y-3">
         {LEARN_CARDS.map((c) => {
           const isDone = learned.includes(c.id)
+          const Icon = learnIcon(c.id)
           return (
             <Card key={c.id} className="p-4" onClick={() => setActive(c)}>
               <div className="flex items-start gap-3">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
-                  {c.emoji}
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-teal">
+                  <Icon size={22} />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
@@ -108,9 +112,11 @@ function LearnReader({ card, onClose }: { card: LearnCard | null; onClose: () =>
     }, 250)
   }
 
+  const CardIcon = learnIcon(card.id)
+
   return (
     <Sheet open={!!card} onClose={close} title={
-      <span className="flex items-center gap-2"><span className="text-xl">{card.emoji}</span>{card.title}</span>
+      <span className="flex items-center gap-2"><CardIcon size={18} className="text-teal" />{card.title}</span>
     }>
       {phase === 'read' && (
         <div className="space-y-4">
@@ -164,7 +170,7 @@ function LearnReader({ card, onClose }: { card: LearnCard | null; onClose: () =>
 
           {card.unlocks === 'fno' && correct && (
             <div className="mt-4 w-full rounded-2xl border border-warn/40 bg-warn/[0.06] p-3 text-left">
-              <p className="text-sm font-semibold text-ink">You’ve learned what F&O is. 🔓</p>
+              <p className="text-sm font-semibold text-ink">You’ve learned what F&O is.</p>
               <p className="mt-0.5 text-xs text-muted">
                 To actually enable it you still need the reality-check quiz + a 24h cooling-off. That’s
                 on purpose.

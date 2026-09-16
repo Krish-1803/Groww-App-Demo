@@ -3,7 +3,7 @@
 // protection nudge, learn/community teasers, transparency) toggled in.
 
 import { useNavigate } from 'react-router-dom'
-import { ArrowUpRight, Plus, Sparkles, TrendingUp } from 'lucide-react'
+import { ArrowUpRight, BookOpen, Plus, Sparkles, TrendingUp, Users } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import { IndicesStrip } from '../components/IndicesStrip'
 import { ProductGrid } from '../components/ProductGrid'
@@ -13,6 +13,7 @@ import { ProtectionNudge } from '../components/ProtectionNudge'
 import { TransparencyCard } from '../components/TransparencyCard'
 import { Button, Card, CountUp, ProgressRing, SectionTitle, Sparkline } from '../components/primitives'
 import { STOCKS } from '../mock/data'
+import { goalIcon } from '../lib/icons'
 import { cx, inr, inrCompact, pct } from '../lib/utils'
 
 export function Home() {
@@ -33,7 +34,7 @@ export function Home() {
       {genZ && (
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-lg font-extrabold text-ink">Hey Aarav 👋</p>
+            <p className="text-lg font-extrabold text-ink">Hey Aarav</p>
             <p className="text-xs text-muted">Small, steady, started young. Let’s keep it going.</p>
           </div>
           <Sparkles size={20} className="text-primary" />
@@ -77,6 +78,7 @@ export function Home() {
             <div className="no-scrollbar flex gap-3 overflow-x-auto pb-1">
               {goals.slice(0, 4).map((g) => {
                 const progress = g.saved / g.target
+                const Icon = goalIcon(g.kind)
                 return (
                   <button
                     key={g.id}
@@ -84,7 +86,7 @@ export function Home() {
                     className="flex w-[128px] shrink-0 flex-col items-center gap-2 rounded-2xl border border-line bg-card p-3 shadow-card active:scale-95 transition"
                   >
                     <ProgressRing progress={progress} size={58} stroke={6}>
-                      <span className="text-xl">{g.emoji}</span>
+                      <Icon size={20} className="text-teal" />
                     </ProgressRing>
                     <div className="text-center">
                       <p className="truncate text-xs font-semibold text-ink">{g.name}</p>
@@ -143,7 +145,9 @@ export function Home() {
           <TransparencyCard />
           <Card className="p-4" onClick={() => navigate('/learn')}>
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-2xl">📚</div>
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-teal">
+                <BookOpen size={20} />
+              </div>
               <div className="flex-1">
                 <p className="text-sm font-bold text-ink">2-min Learn feed</p>
                 <p className="text-xs text-muted">Daily card + quiz · earn XP · unlock products</p>
@@ -153,7 +157,9 @@ export function Home() {
           </Card>
           <Card className="p-4" onClick={() => navigate('/community')}>
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-2xl">🫂</div>
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-teal">
+                <Users size={20} />
+              </div>
               <div className="flex-1">
                 <p className="text-sm font-bold text-ink">People your age</p>
                 <p className="text-xs text-muted">Anonymised stats & theme baskets · not advice</p>

@@ -1,15 +1,15 @@
 // SIP streak habit engine, framed on DISCIPLINE, not trade frequency.
 
-import { Flame } from 'lucide-react'
+import { Award, Crown, Flame, Medal, Sprout, type LucideIcon } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import { Card } from './primitives'
 import { cx } from '../lib/utils'
 
-const BADGES = [
-  { at: 1, label: 'First SIP', emoji: '🌱' },
-  { at: 3, label: 'Consistent', emoji: '💪' },
-  { at: 6, label: 'Disciplined', emoji: '🎖️' },
-  { at: 12, label: '1-year club', emoji: '👑' },
+const BADGES: { at: number; label: string; icon: LucideIcon }[] = [
+  { at: 1, label: 'First SIP', icon: Sprout },
+  { at: 3, label: 'Consistent', icon: Award },
+  { at: 6, label: 'Disciplined', icon: Medal },
+  { at: 12, label: '1-year club', icon: Crown },
 ]
 
 export function StreakCard() {
@@ -41,9 +41,17 @@ export function StreakCard() {
       <div className="mt-4 flex items-center justify-between">
         {BADGES.map((b) => {
           const earned = streak >= b.at
+          const Icon = b.icon
           return (
-            <div key={b.label} className="flex flex-col items-center gap-1">
-              <span className={cx('text-xl transition', earned ? '' : 'opacity-30 grayscale')}>{b.emoji}</span>
+            <div key={b.label} className="flex flex-col items-center gap-1.5">
+              <span
+                className={cx(
+                  'flex h-9 w-9 items-center justify-center rounded-full transition',
+                  earned ? 'bg-warn/15 text-warn' : 'bg-canvas text-muted/50',
+                )}
+              >
+                <Icon size={16} />
+              </span>
               <span className={cx('text-[9px] font-medium', earned ? 'text-ink' : 'text-muted')}>{b.label}</span>
             </div>
           )
@@ -56,8 +64,8 @@ export function StreakCard() {
         </div>
         <p className="mt-1.5 text-[11px] text-muted">
           {nextBadge.at - streak > 0
-            ? `${nextBadge.at - streak} more month${nextBadge.at - streak === 1 ? '' : 's'} to “${nextBadge.label}” ${nextBadge.emoji}`
-            : 'Top badge unlocked. Legend. 👑'}
+            ? `${nextBadge.at - streak} more month${nextBadge.at - streak === 1 ? '' : 's'} to reach “${nextBadge.label}”`
+            : 'Top badge unlocked. You are in rare company.'}
         </p>
       </div>
     </Card>

@@ -6,17 +6,18 @@ import { Check, Plus, Target } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import type { Goal, GoalKind } from '../mock/types'
 import { fundById } from '../mock/data'
+import { goalIcon } from '../lib/icons'
 import { monthsForTarget, sipForTarget } from '../lib/finance'
 import { cx, inr, inrCompact } from '../lib/utils'
 import { Sheet } from '../components/Sheet'
 import { Button, Card, ComplianceLine, EmptyState, ProgressRing } from '../components/primitives'
 
-const PRESETS: { name: string; emoji: string; kind: GoalKind; target: number; months: number }[] = [
-  { name: 'Goa trip', emoji: '🏖️', kind: 'travel', target: 40000, months: 12 },
-  { name: 'iPhone', emoji: '📱', kind: 'gadget', target: 80000, months: 18 },
-  { name: 'Emergency fund', emoji: '🛟', kind: 'safety', target: 90000, months: 18 },
-  { name: 'FIRE head-start', emoji: '🔥', kind: 'freedom', target: 500000, months: 60 },
-  { name: 'Custom goal', emoji: '🎯', kind: 'travel', target: 50000, months: 24 },
+const PRESETS: { name: string; kind: GoalKind; target: number; months: number }[] = [
+  { name: 'Goa trip', kind: 'travel', target: 40000, months: 12 },
+  { name: 'iPhone', kind: 'gadget', target: 80000, months: 18 },
+  { name: 'Emergency fund', kind: 'safety', target: 90000, months: 18 },
+  { name: 'FIRE head-start', kind: 'freedom', target: 500000, months: 60 },
+  { name: 'Custom goal', kind: 'travel', target: 50000, months: 24 },
 ]
 
 // Suggested fund type by horizon: short → debt, medium → index, long → flexi-cap.
@@ -63,11 +64,12 @@ export function Goals() {
             const progress = g.saved / g.target
             const st = statusOf(g)
             const fund = fundById(g.suggestedFundId)
+            const Icon = goalIcon(g.kind)
             return (
               <Card key={g.id} className="p-4">
                 <div className="flex items-center gap-4">
                   <ProgressRing progress={progress} size={64} stroke={7}>
-                    <span className="text-2xl">{g.emoji}</span>
+                    <Icon size={22} className="text-teal" />
                   </ProgressRing>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
@@ -128,7 +130,6 @@ function CreateGoalSheet({ open, onClose }: { open: boolean; onClose: () => void
     const g: Goal = {
       id: `goal-${Date.now()}`,
       name: preset.name,
-      emoji: preset.emoji,
       kind: preset.kind,
       target,
       saved: 0,
@@ -140,6 +141,8 @@ function CreateGoalSheet({ open, onClose }: { open: boolean; onClose: () => void
     addGoal(g)
     setCreated(true)
   }
+
+  const PresetIcon = goalIcon(preset.kind)
 
   const close = () => {
     onClose()
@@ -153,8 +156,8 @@ function CreateGoalSheet({ open, onClose }: { open: boolean; onClose: () => void
     <Sheet open={open} onClose={close} title={created ? 'Goal created' : 'New goal'}>
       {created ? (
         <div className="flex flex-col items-center py-4 text-center">
-          <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary/15 text-3xl">
-            {preset.emoji}
+          <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary/15 text-teal">
+            <PresetIcon size={28} />
           </div>
           <p className="text-lg font-bold text-ink">{preset.name} is on</p>
           <p className="mt-1 text-sm text-muted">
@@ -170,18 +173,21 @@ function CreateGoalSheet({ open, onClose }: { open: boolean; onClose: () => void
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">1 · Pick a goal</p>
             <div className="flex flex-wrap gap-2">
-              {PRESETS.map((p) => (
+              {PRESETS.map((p) => {
+                const ChipIcon = goalIcon(p.kind)
+                return (
                 <button
                   key={p.name}
                   onClick={() => choosePreset(p)}
                   className={cx(
-                    'rounded-full px-3 py-1.5 text-sm font-semibold transition',
+                    'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold transition',
                     preset.name === p.name ? 'bg-primary text-white' : 'bg-canvas text-muted',
                   )}
                 >
-                  {p.emoji} {p.name}
+                  <ChipIcon size={14} /> {p.name}
                 </button>
-              ))}
+                )
+              })}
             </div>
           </div>
 

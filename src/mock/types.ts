@@ -68,7 +68,6 @@ export type GoalKind = 'travel' | 'gadget' | 'safety' | 'freedom'
 export interface Goal {
   id: string
   name: string
-  emoji: string
   kind: GoalKind
   target: number
   saved: number
@@ -80,7 +79,6 @@ export interface Goal {
 
 export interface LearnCard {
   id: string
-  emoji: string
   title: string
   category: string
   readSeconds: number
@@ -104,7 +102,6 @@ export interface CommunityStat {
 export interface ThemeBasket {
   id: string
   name: string
-  emoji: string
   blurb: string
   fundIds: string[]
 }

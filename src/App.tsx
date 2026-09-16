@@ -53,7 +53,7 @@ export default function App() {
   return (
     <PhoneFrame>
       {showOnboarding ? (
-        <div className="no-scrollbar h-full overflow-y-auto">
+        <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
           <Onboarding />
         </div>
       ) : (

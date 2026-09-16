@@ -335,7 +335,7 @@ function FnoUnlocked({
         </div>
         <p className="mt-2 text-[11px] text-muted">Brokerage {inr(BROKERAGE_FLAT)} · mock chain, no real order.</p>
         <Button full className="mt-3" onClick={tryTrade}>
-          {placed ? '✓ Mock order placed' : 'Place mock F&O trade'}
+          {placed ? 'Mock order placed' : 'Place mock F&O trade'}
         </Button>
       </Card>
 

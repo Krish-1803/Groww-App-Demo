@@ -113,7 +113,7 @@ function mockHighlights(key: string): string[] {
     case 'etf':
       return ['Nifty, gold & sector ETFs', 'Trade like a stock, flat ₹20', 'Lower cost than most active funds']
     case 'mtf':
-      return ['Trade with borrowed margin (mock)', '⚠️ Leverage magnifies losses too', 'Interest charged on borrowed amount']
+      return ['Trade with borrowed margin (mock)', 'Leverage magnifies losses too', 'Interest charged on borrowed amount']
     default:
       return ['Illustrative data only', 'No real transactions', 'Prototype surface']
   }

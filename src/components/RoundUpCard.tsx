@@ -47,7 +47,7 @@ export function RoundUpCard() {
           (enabled ? 'bg-primary/10 text-teal' : 'bg-primary text-white')
         }
       >
-        {enabled ? '✓ Round-ups on, investing spare change' : `Invest ${inr(ROUNDUP_TOTAL)} & turn on round-ups`}
+        {enabled ? 'Round-ups on, investing spare change' : `Invest ${inr(ROUNDUP_TOTAL)} & turn on round-ups`}
       </button>
     </Card>
   )

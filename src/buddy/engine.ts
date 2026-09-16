@@ -24,36 +24,63 @@ export interface BuddyReply {
   source: 'offline' | 'live'
 }
 
-/** Normalise a query for keyword matching. */
+const STOPWORDS = new Set(['a', 'an', 'the', 'please'])
+
+/** Normalise a query: lowercase, expand n't, drop filler words, collapse space. */
 function norm(s: string): string {
-  return s.toLowerCase().replace(/[^a-z0-9&\s]/g, ' ')
+  return s
+    .toLowerCase()
+    .replace(/n['’]t/g, ' not')
+    .replace(/[^a-z0-9&\s]/g, ' ')
+    .split(/\s+/)
+    .filter((w) => w && !STOPWORDS.has(w))
+    .join(' ')
+    .trim()
 }
 
-/** Score an answer by how many of its intents appear in the query. */
-function scoreAnswer(query: string, a: BuddyAnswer): number {
-  const q = norm(query)
+// Padded with spaces so single-token intents match on whole-word boundaries
+// (this is the fix for e.g. "hi" matching inside "which", or "red" in "credited").
+function padded(q: string): string {
+  return ` ${q} `
+}
+
+/**
+ * Score how well an answer matches the query. Multi-word intents are matched as
+ * phrases (weighted high); single tokens must match a whole word. A minimum
+ * threshold in offlineReply() keeps weak coincidental matches from firing an
+ * irrelevant scripted answer.
+ */
+function scoreAnswer(q: string, a: BuddyAnswer): number {
+  const p = padded(q)
   let score = 0
-  for (const intent of a.intents) {
-    if (q.includes(intent)) {
-      // Longer, more specific phrases weigh more.
-      score += intent.includes(' ') ? 3 : 1
+  for (const raw of a.intents) {
+    const intent = raw.toLowerCase()
+    if (intent.includes(' ')) {
+      // Phrase match: strong signal of intent.
+      if (p.includes(` ${intent} `) || q.includes(intent)) score += 5
+    } else if (p.includes(` ${intent} `)) {
+      // Whole-word token match. Longer tokens are more specific.
+      score += intent.length >= 5 ? 3 : 2
     }
   }
   return score
 }
 
+const MIN_SCORE = 2
+
 /** The offline coach: pick the best-matching scripted answer, else fallback. */
 export function offlineReply(query: string): BuddyReply {
+  const q = norm(query)
   let best: BuddyAnswer | null = null
   let bestScore = 0
   for (const a of BUDDY_ANSWERS) {
-    const s = scoreAnswer(query, a)
+    const s = scoreAnswer(q, a)
     if (s > bestScore) {
       bestScore = s
       best = a
     }
   }
-  if (best && bestScore > 0) {
+  if (best && bestScore >= MIN_SCORE) {
     return { text: best.answer, chips: best.chips, source: 'offline' }
   }
   const greeting = BUDDY_ANSWERS.find((a) => a.id === 'greeting')

@@ -7,9 +7,10 @@ import { useStore } from '../store/useStore'
 import type { ThemeBasket } from '../mock/types'
 import { COMMUNITY_STATS, THEME_BASKETS, fundById } from '../mock/data'
 import { inr } from '../lib/utils'
+import { basketIcon } from '../lib/icons'
 import { Sheet } from '../components/Sheet'
 import { InvestSheet } from '../components/InvestSheet'
-import { Button, Card, ComplianceLine, NotAdvicePill, SectionTitle } from '../components/primitives'
+import { Button, Card, ComplianceLine, SectionTitle } from '../components/primitives'
 
 export function Community() {
   const genZ = useStore((s) => s.genZMode)
@@ -55,22 +56,25 @@ export function Community() {
 
           {/* Theme baskets */}
           <div>
-            <SectionTitle action={<NotAdvicePill label="Themes, not advice" />}>Theme baskets</SectionTitle>
+            <SectionTitle>Theme baskets</SectionTitle>
             <div className="space-y-3">
-              {THEME_BASKETS.map((b) => (
-                <Card key={b.id} className="p-4" onClick={() => setBasket(b)}>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
-                      {b.emoji}
+              {THEME_BASKETS.map((b) => {
+                const Icon = basketIcon(b.id)
+                return (
+                  <Card key={b.id} className="p-4" onClick={() => setBasket(b)}>
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-teal">
+                        <Icon size={20} />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-bold text-ink">{b.name}</p>
+                        <p className="text-xs text-muted">{b.blurb}</p>
+                      </div>
+                      <span className="text-xs font-bold text-teal">View →</span>
                     </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-bold text-ink">{b.name}</p>
-                      <p className="text-xs text-muted">{b.blurb}</p>
-                    </div>
-                    <span className="text-xs font-bold text-teal">View →</span>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                )
+              })}
             </div>
           </div>
 
@@ -79,14 +83,11 @@ export function Community() {
       )}
 
       {/* Basket detail */}
-      <Sheet open={!!basket} onClose={() => setBasket(null)} title={
-        basket ? <span className="flex items-center gap-2"><span className="text-xl">{basket.emoji}</span>{basket.name}</span> : ''
-      }>
+      <Sheet open={!!basket} onClose={() => setBasket(null)} title={basket ? basket.name : ''}>
         {basket && (
           <div className="space-y-3">
-            <div className="rounded-xl bg-warn/10 p-3">
-              <NotAdvicePill />
-              <p className="mt-1.5 text-xs text-muted">
+            <div className="rounded-xl border border-line bg-canvas p-3">
+              <p className="text-xs text-muted">
                 A theme is a starting point for research, not a recommendation to buy. Do your own
                 homework.
               </p>

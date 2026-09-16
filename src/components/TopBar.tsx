@@ -3,7 +3,22 @@
 // prototype info, and reset.
 
 import { useState } from 'react'
-import { Bell, Fingerprint, Info, Moon, RotateCcw, Search, Sun, User, Zap } from 'lucide-react'
+import {
+  Bell,
+  BookOpen,
+  CalendarClock,
+  Fingerprint,
+  Flame,
+  Info,
+  Moon,
+  Receipt,
+  RotateCcw,
+  Search,
+  Sun,
+  User,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
 import { useStore } from '../store/useStore'
 import { cx } from '../lib/utils'
 import { Sheet } from './Sheet'
@@ -65,17 +80,25 @@ export function TopBar({ onOpenInfo }: { onOpenInfo: () => void }) {
       {/* Notifications sheet */}
       <Sheet open={notif} onClose={() => setNotif(false)} title="Notifications">
         <div className="space-y-2">
-          {[
-            { t: '🔥 Streak alert', b: `You're on a ${streak}-month SIP streak. One more and you unlock the Disciplined badge.` },
-            { t: '💧 SIP due 5 Oct', b: 'Your ₹500 index SIP runs on the 5th. Nothing to do, it’s automatic.' },
-            { t: '🧾 IPO update', b: 'Oravel (OYO) allotment status is available. Tap IPO to check.' },
-            { t: '📚 New Learn card', b: '“What F&O is, and why it’s risky” is live. 60 seconds, unlocks a product.' },
-          ].map((n, i) => (
-            <div key={i} className="rounded-xl border border-line bg-canvas p-3">
-              <p className="text-sm font-semibold text-ink">{n.t}</p>
-              <p className="mt-0.5 text-xs text-muted">{n.b}</p>
-            </div>
-          ))}
+          {([
+            { icon: Flame, t: 'Streak alert', b: `You're on a ${streak}-month SIP streak. One more and you unlock the Disciplined badge.` },
+            { icon: CalendarClock, t: 'SIP due 5 Oct', b: 'Your ₹500 index SIP runs on the 5th. Nothing to do, it’s automatic.' },
+            { icon: Receipt, t: 'IPO update', b: 'Oravel (OYO) allotment status is available. Tap IPO to check.' },
+            { icon: BookOpen, t: 'New Learn card', b: '“What F&O is, and why it’s risky” is live. 60 seconds, unlocks a product.' },
+          ] as { icon: LucideIcon; t: string; b: string }[]).map((n, i) => {
+            const Icon = n.icon
+            return (
+              <div key={i} className="flex gap-3 rounded-xl border border-line bg-canvas p-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-teal">
+                  <Icon size={16} />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-ink">{n.t}</p>
+                  <p className="mt-0.5 text-xs text-muted">{n.b}</p>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </Sheet>
 
@@ -83,7 +106,9 @@ export function TopBar({ onOpenInfo }: { onOpenInfo: () => void }) {
       <Sheet open={menu} onClose={() => setMenu(false)} title="Profile & settings">
         <div className="space-y-3">
           <div className="flex items-center gap-3 rounded-2xl bg-canvas p-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/15 text-lg">🙂</div>
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/15 text-teal">
+              <User size={20} />
+            </div>
             <div className="flex-1">
               <p className="font-bold text-ink">Aarav (demo)</p>
               <p className="text-xs text-muted">KYC: mock · Age 22 · rkkdclaude</p>

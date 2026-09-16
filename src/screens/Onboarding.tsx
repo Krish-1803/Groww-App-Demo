@@ -14,14 +14,12 @@ import { ProjectionChart } from '../components/ProjectionChart'
 
 interface Q {
   q: string
-  emoji: string
   options: { label: string; score: number }[]
 }
 
 const QUESTIONS: Q[] = [
   {
     q: 'Your ₹10,000 SIP drops to ₹8,000 in a month. You…',
-    emoji: '😰',
     options: [
       { label: 'Panic-sell everything', score: 0 },
       { label: 'Feel uneasy, but hold', score: 1 },
@@ -31,7 +29,6 @@ const QUESTIONS: Q[] = [
   },
   {
     q: 'What are you really investing for?',
-    emoji: '🎯',
     options: [
       { label: 'Safety, don’t lose my money', score: 0 },
       { label: 'A goal in 2 to 4 years', score: 1 },
@@ -41,7 +38,6 @@ const QUESTIONS: Q[] = [
   },
   {
     q: 'How much of investing do you actually get?',
-    emoji: '🧠',
     options: [
       { label: 'Total beginner', score: 1 },
       { label: 'I know SIPs & funds', score: 2 },
@@ -49,12 +45,11 @@ const QUESTIONS: Q[] = [
     ],
   },
   {
-    q: 'Pick the ride you’d choose:',
-    emoji: '🎢',
+    q: 'How much day-to-day swing can you sit through?',
     options: [
-      { label: 'Steady train 🚆 (calm)', score: 0 },
-      { label: 'Highway drive 🚗 (some bumps)', score: 2 },
-      { label: 'Rollercoaster 🎢 (big swings)', score: 3 },
+      { label: 'Very little, keep it steady', score: 0 },
+      { label: 'Some ups and downs are fine', score: 2 },
+      { label: 'Big swings don’t faze me', score: 3 },
     ],
   },
 ]
@@ -138,7 +133,9 @@ export function Onboarding() {
 
       {step < QUESTIONS.length ? (
         <div key={step} className="flex flex-1 flex-col animate-scale-in">
-          <div className="mb-1 text-4xl">{QUESTIONS[step].emoji}</div>
+          <span className="mb-3 inline-flex w-fit items-center rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-teal">
+            Question {step + 1}
+          </span>
           <h1 className="mb-6 text-2xl font-extrabold leading-tight text-ink">{QUESTIONS[step].q}</h1>
           <div className="space-y-3">
             {QUESTIONS[step].options.map((o) => (
@@ -210,7 +207,7 @@ export function Onboarding() {
           <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-primary/15">
             <PartyPopper size={40} className="text-teal" />
           </div>
-          <h1 className="text-2xl font-extrabold text-ink">You’re investing! 🎉</h1>
+          <h1 className="text-2xl font-extrabold text-ink">You’re investing</h1>
           <p className="mt-2 max-w-[280px] text-sm text-muted">
             Your first ₹500 SIP into {fundById('nifty50-index').name} is set for the 5th. That’s the
             whole game: showing up monthly.

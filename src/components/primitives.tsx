@@ -4,7 +4,7 @@
 // ---------------------------------------------------------------------------
 
 import { useEffect, useRef, useState } from 'react'
-import { Info, ShieldCheck } from 'lucide-react'
+import { Flame, ShieldCheck } from 'lucide-react'
 import { cx, inr } from '../lib/utils'
 import { COMPLIANCE_LINE } from '../mock/data'
 
@@ -94,12 +94,10 @@ export function ProgressRing({
 
 // --- Streak flame -------------------------------------------------------
 export function StreakFlame({ months, size = 'md' }: { months: number; size?: 'sm' | 'md' | 'lg' }) {
-  const px = size === 'lg' ? 'text-3xl' : size === 'sm' ? 'text-base' : 'text-xl'
+  const px = size === 'lg' ? 24 : size === 'sm' ? 15 : 18
   return (
     <span className="inline-flex items-center gap-1">
-      <span className={cx(px, 'animate-flame inline-block')} role="img" aria-label="streak flame">
-        🔥
-      </span>
+      <Flame size={px} className="animate-flame text-warn" aria-label="streak" />
       <span className="tnum font-bold">{months}</span>
     </span>
   )
@@ -150,15 +148,6 @@ export function ComplianceLine({ text = COMPLIANCE_LINE, className }: { text?: s
       <ShieldCheck size={13} className="mt-0.5 shrink-0 opacity-70" />
       <span>{text}</span>
     </p>
-  )
-}
-
-// --- Not-advice pill ----------------------------------------------------
-export function NotAdvicePill({ label = 'Not advice' }: { label?: string }) {
-  return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-warn/10 px-2 py-0.5 text-[10px] font-semibold text-warn">
-      <Info size={10} /> {label}
-    </span>
   )
 }
 

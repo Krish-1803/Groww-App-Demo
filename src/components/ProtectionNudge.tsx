@@ -25,7 +25,7 @@ export function ProtectionNudge() {
           <ShieldCheck size={20} className="text-warn" />
         </div>
         <div className="flex-1">
-          <p className="text-sm font-bold text-ink">Protection first 🛟</p>
+          <p className="text-sm font-bold text-ink">Protection first</p>
           <p className="mt-0.5 text-xs text-muted">
             Your emergency fund is still ₹0. Before chasing returns, a small safety cushion means a
             surprise bill never forces you to sell. No pressure, just a nudge.
