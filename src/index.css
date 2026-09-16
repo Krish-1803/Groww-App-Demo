@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Brand palette via CSS variables (Prompt 4: light/dark-aware, CSS-variable
+   driven, default light). Values are space-separated RGB channels so Tailwind's
+   `rgb(var(--token) / <alpha-value>)` opacity modifier keeps working.
+--------------------------------------------------------------------------- */
+:root {
+  --c-primary: 0 208 156; /* #00D09C */
+  --c-teal: 0 179 134; /* #00B386 */
+  --c-ink: 26 31 54; /* #1A1F36 */
+  --c-muted: 107 114 128; /* #6B7280 */
+  --c-canvas: 246 248 251; /* #F6F8FB */
+  --c-card: 255 255 255; /* #FFFFFF */
+  --c-line: 232 236 242; /* hairline borders */
+  --c-positive: 0 179 134; /* #00B386 */
+  --c-danger: 229 72 77; /* #E5484D */
+  --c-warn: 245 166 35; /* #F5A623 */
+}
+
+.dark {
+  --c-primary: 45 224 178; /* slightly brighter teal for dark bg */
+  --c-teal: 0 200 150;
+  --c-ink: 236 240 247; /* near-white text */
+  --c-muted: 148 156 172;
+  --c-canvas: 12 16 26; /* deep slate canvas */
+  --c-card: 22 27 40; /* elevated card */
+  --c-line: 40 47 64;
+  --c-positive: 45 210 165;
+  --c-danger: 240 110 114;
+  --c-warn: 245 176 66;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Backdrop behind the phone frame. */
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgb(0 208 156 / 0.14), transparent 60%),
+    #eef1f6;
+  color: rgb(var(--c-ink));
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.dark body {
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgb(0 208 156 / 0.1), transparent 60%),
+    #070a12;
+}
+
+/* Hide scrollbars inside the phone frame for a native feel, keep scrolling. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Number tabular alignment for money figures. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
