@@ -22,11 +22,16 @@ import { FnO } from './screens/FnO'
 import { IPO } from './screens/IPO'
 import { Explore } from './screens/Explore'
 
+// Guard so the session counter increments once per page load, even under
+// React StrictMode's double-invoked effects in development.
+let sessionCounted = false
+
 export default function App() {
   const theme = useStore((s) => s.theme)
   const genZ = useStore((s) => s.genZMode)
   const onboarded = useStore((s) => s.onboarded)
   const setInfo = useStore((s) => s.setInfo)
+  const bumpSession = useStore((s) => s.bumpSession)
 
   // Drive the theme from the document root so the backdrop and every surface
   // (including anything outside the phone frame) flips together.
@@ -34,6 +39,14 @@ export default function App() {
     document.documentElement.classList.toggle('dark', theme === 'dark')
     document.documentElement.style.colorScheme = theme
   }, [theme])
+
+  // Count this visit once. State is persisted, so the counter (and everything
+  // else) carries across reloads and sessions.
+  useEffect(() => {
+    if (sessionCounted) return
+    sessionCounted = true
+    bumpSession()
+  }, [bumpSession])
 
   const showOnboarding = genZ && !onboarded
 

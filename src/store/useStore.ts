@@ -1,10 +1,14 @@
 // ---------------------------------------------------------------------------
 // One Zustand store: mock user, portfolio, goals, streak, session counter,
-// F&O unlock, Gen Z toggle, trades-per-day, round-ups, theme. No persistence
-// (prototype resets on reload / via the "reset prototype" button).
+// F&O unlock, Gen Z toggle, trades-per-day, round-ups, theme.
+//
+// Persisted to localStorage (see the persist() config below) so a returning
+// visitor keeps their progress and is NOT sent back through onboarding on every
+// reload. The "reset prototype" button clears that state deliberately.
 // ---------------------------------------------------------------------------
 
 import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import {
   GOALS,
   HOLDINGS,
@@ -84,13 +88,16 @@ const initialFno: FnoState = {
   cooloffUntil: null,
 }
 
-export const useStore = create<AppState>((set, get) => ({
+export const useStore = create<AppState>()(
+  persist(
+    (set, get) => ({
   genZMode: true, // default ON for the demo
   theme: 'light',
   onboarded: false,
-  // Seeded at 3 so the "protection first" nudge (returns after 3 sessions while
-  // the emergency fund is ₹0) is visible in the demo without needing reloads.
-  sessionCount: 3,
+  // Seeded at 2; the first real visit bumps it to 3 (see bumpSession, called
+  // once per app load), which is when the "protection first" nudge kicks in
+  // while the emergency fund is still ₹0.
+  sessionCount: 2,
   showInfo: false,
 
   riskProfile: null,
@@ -260,7 +267,7 @@ export const useStore = create<AppState>((set, get) => ({
     set({
       genZMode: true,
       onboarded: false,
-      sessionCount: 3,
+      sessionCount: 2,
       showInfo: false,
       riskProfile: null,
       starterStarted: false,
@@ -274,4 +281,29 @@ export const useStore = create<AppState>((set, get) => ({
       fno: { ...initialFno },
       tradesToday: 0,
     }),
-}))
+    }),
+    {
+      name: 'groww-genz-store',
+      version: 1,
+      storage: createJSONStorage(() => localStorage),
+      // Persist data only; actions and the transient info-sheet flag are skipped.
+      partialize: (s) => ({
+        genZMode: s.genZMode,
+        theme: s.theme,
+        onboarded: s.onboarded,
+        sessionCount: s.sessionCount,
+        riskProfile: s.riskProfile,
+        starterStarted: s.starterStarted,
+        holdings: s.holdings,
+        sips: s.sips,
+        goals: s.goals,
+        roundUpEnabled: s.roundUpEnabled,
+        streakMonths: s.streakMonths,
+        xp: s.xp,
+        learnedCardIds: s.learnedCardIds,
+        fno: s.fno,
+        tradesToday: s.tradesToday,
+      }),
+    },
+  ),
+)

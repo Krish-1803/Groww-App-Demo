@@ -93,7 +93,10 @@ the Gen Z toggle genuinely shows and hides the layer.
 
 - Vite, React, TypeScript, Tailwind CSS.
 - Zustand for one store (`src/store/useStore.ts`): user, portfolio, goals, streak,
-  session counter, F&O unlock, Gen Z toggle, trades per day, round-ups, theme.
+  session counter, F&O unlock, Gen Z toggle, trades per day, round-ups, theme. The
+  store is persisted to `localStorage`, so a returning visitor keeps their progress
+  and isn't sent back through onboarding on every reload. The "reset prototype"
+  button (in the profile menu) clears it.
 - recharts for projections and the allocation donut, lucide-react for icons,
   react-router-dom for the HashRouter tabs.
 - Brand tokens live in `tailwind.config.js`, backed by CSS variables in
