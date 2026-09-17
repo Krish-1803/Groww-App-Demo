@@ -381,8 +381,7 @@ export const BUDDY_ANSWERS: BuddyAnswer[] = [
   {
     id: 'greeting',
     intents: ['hi', 'hello', 'hey', 'help', 'who are you', 'what can you do'],
-    answer:
-      "Hi, I'm Groww Buddy, your money coach (not a tipster). I won't tell you what to buy or sell, but I can explain any term in plain English, talk you through a scary market day, or sanity-check your plan. What would you like to go over?",
+    answer: "Hi, I'm Buddy, here to help you invest better. Ask me anything.",
     chips: ['What is a SIP?', 'Should I buy Zomato?', 'Is my money safe?', 'How much should I invest?'],
   },
   {

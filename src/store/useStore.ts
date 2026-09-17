@@ -25,12 +25,14 @@ export interface FnoState {
 }
 
 export interface AppState {
-  // ---- meta / demo controls
+  // ---- meta / app controls
   genZMode: boolean
   theme: 'light' | 'dark'
   onboarded: boolean
+  onboardingOpen: boolean
   sessionCount: number
   showInfo: boolean
+  notificationsRead: boolean
 
   // ---- user profile (from quiz)
   riskProfile: RiskProfile | null
@@ -59,6 +61,9 @@ export interface AppState {
   toggleGenZ: () => void
   toggleTheme: () => void
   setInfo: (v: boolean) => void
+  markNotificationsRead: () => void
+  openOnboarding: () => void
+  closeOnboarding: () => void
   setRiskProfile: (p: RiskProfile) => void
   startStarterPortfolio: () => void
   completeOnboarding: () => void
@@ -88,17 +93,45 @@ const initialFno: FnoState = {
   cooloffUntil: null,
 }
 
+/**
+ * Pure helper: add `amount` into the holding for `fundId`, creating it if new.
+ * Every path that puts money into a fund (SIP, round-up, goal contribution,
+ * starter portfolio) routes through here, so the portfolio reflects it
+ * everywhere the holdings are read.
+ */
+function addToHoldings(holdings: Holding[], fundId: string, amount: number): Holding[] {
+  const fund = fundById(fundId)
+  if (holdings.some((h) => h.fundId === fundId)) {
+    return holdings.map((h) =>
+      h.fundId === fundId
+        ? {
+            ...h,
+            investedValue: h.investedValue + amount,
+            currentValue: h.currentValue + amount,
+            units: h.units + amount / fund.nav,
+          }
+        : h,
+    )
+  }
+  return [
+    ...holdings,
+    { fundId, investedValue: amount, currentValue: amount, units: amount / fund.nav },
+  ]
+}
+
 export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
-  genZMode: true, // default ON for the demo
+  genZMode: true, // Gen Z layer on by default
   theme: 'light',
   onboarded: false,
+  onboardingOpen: false,
   // Seeded at 2; the first real visit bumps it to 3 (see bumpSession, called
   // once per app load), which is when the "protection first" nudge kicks in
   // while the emergency fund is still ₹0.
   sessionCount: 2,
   showInfo: false,
+  notificationsRead: false,
 
   riskProfile: null,
   starterStarted: false,
@@ -123,6 +156,9 @@ export const useStore = create<AppState>()(
   toggleGenZ: () => set((s) => ({ genZMode: !s.genZMode })),
   toggleTheme: () => set((s) => ({ theme: s.theme === 'light' ? 'dark' : 'light' })),
   setInfo: (v) => set({ showInfo: v }),
+  markNotificationsRead: () => set({ notificationsRead: true }),
+  openOnboarding: () => set({ onboardingOpen: true }),
+  closeOnboarding: () => set({ onboardingOpen: false }),
 
   setRiskProfile: (p) => set({ riskProfile: p }),
 
@@ -149,7 +185,7 @@ export const useStore = create<AppState>()(
       return { starterStarted: true, sips: [...s.sips, ...additions] }
     }),
 
-  completeOnboarding: () => set({ onboarded: true }),
+  completeOnboarding: () => set({ onboarded: true, onboardingOpen: false }),
 
   addSip: (fundId, amount) =>
     set((s) => {
@@ -167,70 +203,30 @@ export const useStore = create<AppState>()(
           { fundId, amount, active: true, nextDate: '5 Oct' },
         ]
       }
-      // Reflect the SIP as a small immediate holding so portfolio numbers move.
-      const fund = fundById(fundId)
-      const holdings = s.holdings.some((h) => h.fundId === fundId)
-        ? s.holdings.map((h) =>
-            h.fundId === fundId
-              ? {
-                  ...h,
-                  investedValue: h.investedValue + amount,
-                  currentValue: h.currentValue + amount,
-                  units: h.units + amount / fund.nav,
-                }
-              : h,
-          )
-        : [
-            ...s.holdings,
-            {
-              fundId,
-              investedValue: amount,
-              currentValue: amount,
-              units: amount / fund.nav,
-            },
-          ]
-      return { sips, holdings }
+      // Reflect the SIP as an immediate holding so portfolio numbers move.
+      return { sips, holdings: addToHoldings(s.holdings, fundId, amount) }
     }),
 
   toggleRoundUp: () => set((s) => ({ roundUpEnabled: !s.roundUpEnabled })),
 
   investRoundUp: (amount) =>
-    set((s) => {
-      // Round-ups flow into the index fund by default.
-      const fund = fundById('nifty50-index')
-      const holdings = s.holdings.some((h) => h.fundId === fund.id)
-        ? s.holdings.map((h) =>
-            h.fundId === fund.id
-              ? {
-                  ...h,
-                  investedValue: h.investedValue + amount,
-                  currentValue: h.currentValue + amount,
-                  units: h.units + amount / fund.nav,
-                }
-              : h,
-          )
-        : [
-            ...s.holdings,
-            {
-              fundId: fund.id,
-              investedValue: amount,
-              currentValue: amount,
-              units: amount / fund.nav,
-            },
-          ]
-      return { holdings }
-    }),
+    // Round-ups flow into the index fund by default.
+    set((s) => ({ holdings: addToHoldings(s.holdings, 'nifty50-index', amount) })),
 
   addGoal: (g) => set((s) => ({ goals: [...s.goals, g] })),
 
   contributeToGoal: (goalId, amount) =>
-    set((s) => ({
-      goals: s.goals.map((g) =>
-        g.id === goalId
-          ? { ...g, saved: Math.min(g.target, g.saved + amount) }
-          : g,
-      ),
-    })),
+    set((s) => {
+      const goal = s.goals.find((g) => g.id === goalId)
+      return {
+        goals: s.goals.map((g) =>
+          g.id === goalId ? { ...g, saved: Math.min(g.target, g.saved + amount) } : g,
+        ),
+        // A goal contribution also buys into the goal's suggested fund, so it
+        // shows up in Holdings / Portfolio like any other investment.
+        holdings: goal ? addToHoldings(s.holdings, goal.suggestedFundId, amount) : s.holdings,
+      }
+    }),
 
   markLearned: (cardId, xp) =>
     set((s) => {
@@ -267,8 +263,10 @@ export const useStore = create<AppState>()(
     set({
       genZMode: true,
       onboarded: false,
+      onboardingOpen: false,
       sessionCount: 2,
       showInfo: false,
+      notificationsRead: false,
       riskProfile: null,
       starterStarted: false,
       holdings: HOLDINGS.map((h) => ({ ...h })),
@@ -292,6 +290,7 @@ export const useStore = create<AppState>()(
         theme: s.theme,
         onboarded: s.onboarded,
         sessionCount: s.sessionCount,
+        notificationsRead: s.notificationsRead,
         riskProfile: s.riskProfile,
         starterStarted: s.starterStarted,
         holdings: s.holdings,

@@ -17,6 +17,10 @@ export default {
         positive: 'rgb(var(--c-positive) / <alpha-value>)',
         danger: 'rgb(var(--c-danger) / <alpha-value>)',
         warn: 'rgb(var(--c-warn) / <alpha-value>)',
+        blue: 'rgb(var(--c-blue) / <alpha-value>)',
+        sky: 'rgb(var(--c-sky) / <alpha-value>)',
+        yellow: 'rgb(var(--c-yellow) / <alpha-value>)',
+        purple: 'rgb(var(--c-purple) / <alpha-value>)',
       },
       fontFamily: {
         sans: [
@@ -67,6 +71,10 @@ export default {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
       animation: {
         'count-fade': 'count-fade 0.4s ease-out',
@@ -74,6 +82,7 @@ export default {
         'sheet-up': 'sheet-up 0.28s cubic-bezier(0.22, 1, 0.36, 1)',
         'fade-in': 'fade-in 0.2s ease-out',
         'scale-in': 'scale-in 0.22s cubic-bezier(0.22, 1, 0.36, 1)',
+        marquee: 'marquee 22s linear infinite',
       },
     },
   },

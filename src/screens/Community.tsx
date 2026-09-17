@@ -6,14 +6,16 @@ import { Users } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import type { ThemeBasket } from '../mock/types'
 import { COMMUNITY_STATS, THEME_BASKETS, fundById } from '../mock/data'
-import { inr } from '../lib/utils'
+import { cx, inr } from '../lib/utils'
 import { basketIcon } from '../lib/icons'
+import { useInvestGuard } from '../lib/useInvestGuard'
 import { Sheet } from '../components/Sheet'
 import { InvestSheet } from '../components/InvestSheet'
 import { Button, Card, ComplianceLine, SectionTitle } from '../components/primitives'
 
 export function Community() {
   const genZ = useStore((s) => s.genZMode)
+  const guard = useInvestGuard()
   const [basket, setBasket] = useState<ThemeBasket | null>(null)
   const [investFund, setInvestFund] = useState<string | null>(null)
 
@@ -24,26 +26,20 @@ export function Community() {
         <p className="text-xs text-muted">Aggregated data from investors your age. Never a recommendation.</p>
       </div>
 
-      {!genZ && (
-        <Card className="p-4">
-          <p className="text-sm text-ink">
-            Community is part of Gen Z mode. Turn it on from your profile to see anonymised peer stats
-            and theme baskets.
-          </p>
-        </Card>
-      )}
-
       {genZ && (
         <>
           {/* Aggregate stats */}
           <div className="grid grid-cols-2 gap-3">
-            {COMMUNITY_STATS.map((s) => (
-              <Card key={s.label} className="p-3.5">
-                <p className="tnum text-2xl font-extrabold text-teal">{s.value}</p>
-                <p className="mt-0.5 text-[11px] font-semibold text-ink">{s.label}</p>
-                <p className="text-[10px] text-muted">{s.sub}</p>
-              </Card>
-            ))}
+            {COMMUNITY_STATS.map((s, i) => {
+              const tones = ['text-teal', 'text-blue', 'text-purple', 'text-yellow']
+              return (
+                <Card key={s.label} className="p-3.5">
+                  <p className={cx('tnum text-2xl font-extrabold', tones[i % tones.length])}>{s.value}</p>
+                  <p className="mt-0.5 text-[11px] font-semibold text-ink">{s.label}</p>
+                  <p className="text-[10px] text-muted">{s.sub}</p>
+                </Card>
+              )
+            })}
           </div>
 
           <Card className="flex items-start gap-3 border-primary/30 bg-primary/[0.05] p-4">
@@ -106,7 +102,7 @@ export function Community() {
                       <p className="text-[10px] text-muted">3Y CAGR</p>
                     </div>
                   </div>
-                  <Button variant="soft" size="sm" full className="mt-2" onClick={() => { setBasket(null); setInvestFund(fid) }}>
+                  <Button variant="soft" size="sm" full className="mt-2" onClick={() => guard(() => { setBasket(null); setInvestFund(fid) })}>
                     Start SIP · min {inr(f.minSip)}
                   </Button>
                 </div>

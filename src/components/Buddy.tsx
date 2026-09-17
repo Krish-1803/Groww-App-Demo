@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Send, Sparkles } from 'lucide-react'
 import { Sheet } from './Sheet'
-import { askBuddy, USE_LIVE_AI } from '../buddy/engine'
+import { askBuddy } from '../buddy/engine'
 import { BUDDY_ANSWERS } from '../mock/data'
 import { cx } from '../lib/utils'
 
@@ -64,13 +64,6 @@ export function BuddyChat({ open, onClose }: { open: boolean; onClose: () => voi
       </span>
     }>
       <div className="flex h-[62vh] flex-col">
-        <p className="mb-2 rounded-lg bg-canvas px-3 py-2 text-[11px] text-muted">
-          A calm money coach. Explains jargon, de-escalates panic, never gives buy/sell tips.
-          {USE_LIVE_AI
-            ? ' Live AI is ON (preview only).'
-            : ' Live AI runs in preview; this link uses the built-in coach.'}
-        </p>
-
         <div ref={scrollRef} className="no-scrollbar flex-1 space-y-3 overflow-y-auto pb-2">
           {msgs.map((m, i) => (
             <div key={i}>

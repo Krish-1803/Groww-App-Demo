@@ -1,46 +1,69 @@
-// The required "about this prototype" sheet: prototype, mock data, no real
-// transactions / KYC / prices.
+// "About Groww" sheet: the product thesis and what the app does, presented
+// professionally (opened from the profile menu).
 
-import { AlertTriangle, CheckCircle2 } from 'lucide-react'
+import { BookOpen, ShieldCheck, Sparkles, TrendingUp } from 'lucide-react'
 import { Sheet } from './Sheet'
 import { Button } from './primitives'
 import { useStore } from '../store/useStore'
+
+const POINTS = [
+  {
+    icon: TrendingUp,
+    title: 'The full Groww surface',
+    body: 'Stocks, Mutual Funds, F&O, IPOs, Gold, FDs, Bonds and ETFs, with SIPs from ₹100 and zero-commission direct funds.',
+  },
+  {
+    icon: Sparkles,
+    title: 'A Gen Z layer',
+    body: 'A risk quiz that builds a starter portfolio, goal-based investing, SIP streaks and round-ups to turn investing into a habit.',
+  },
+  {
+    icon: BookOpen,
+    title: 'Learn as you go',
+    body: 'Bite-sized lessons with quizzes, plus Groww Buddy, a coach that explains jargon and keeps you calm, without stock tips.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Responsible by design',
+    body: 'F&O stays locked behind a reality check and cooling-off, an emergency-fund nudge comes first, and every screen shows a clear disclaimer.',
+  },
+]
 
 export function InfoSheet() {
   const open = useStore((s) => s.showInfo)
   const setInfo = useStore((s) => s.setInfo)
 
   return (
-    <Sheet open={open} onClose={() => setInfo(false)} title="About this prototype">
+    <Sheet open={open} onClose={() => setInfo(false)} title="About Groww">
       <div className="space-y-4">
-        <div className="rounded-2xl bg-warn/10 p-4">
-          <p className="flex items-center gap-2 font-bold text-ink">
-            <AlertTriangle size={18} className="text-warn" /> This is a front-end prototype
-          </p>
-          <p className="mt-1.5 text-sm text-muted">
-            Everything here runs on mock data in your browser. There are no real prices, no KYC, no
-            payments, and no orders are ever placed.
+        <div className="rounded-2xl bg-gradient-to-br from-primary/15 to-teal/10 p-4">
+          <p className="text-base font-bold text-ink">Investing that grows with you</p>
+          <p className="mt-1 text-sm text-muted">
+            Groww for Gen Z helps first-time investors build good habits and invest responsibly, from
+            their very first ₹500.
           </p>
         </div>
 
         <div className="space-y-2.5">
-          {[
-            'Mock data only: prices, NAVs, P&L and IPO status are illustrative.',
-            'No real KYC / AML, no UPI or payment rails, no order routing.',
-            'Projections assume a 12% p.a. long-term return, not a guarantee.',
-            '“Gen Z mode” is a layer on the standard Groww surface, not a separate app.',
-            'Groww Buddy never gives buy/sell tips. It’s a coach, not a tipster.',
-          ].map((t, i) => (
-            <div key={i} className="flex items-start gap-2.5">
-              <CheckCircle2 size={17} className="mt-0.5 shrink-0 text-positive" />
-              <p className="text-sm text-ink">{t}</p>
-            </div>
-          ))}
+          {POINTS.map((p) => {
+            const Icon = p.icon
+            return (
+              <div key={p.title} className="flex items-start gap-3 rounded-2xl border border-line p-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-teal">
+                  <Icon size={18} />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-ink">{p.title}</p>
+                  <p className="mt-0.5 text-xs text-muted">{p.body}</p>
+                </div>
+              </div>
+            )
+          })}
         </div>
 
         <p className="text-[11px] leading-relaxed text-muted">
-          Built as a Product-Intern assignment concept: retention + responsible investing for
-          first-time investors aged 20 to 26. Not affiliated with, or endorsed by, Groww.
+          A concept build for a product assignment. Not affiliated with, or endorsed by, Groww.
+          Nothing here is investment advice.
         </p>
 
         <Button full onClick={() => setInfo(false)}>

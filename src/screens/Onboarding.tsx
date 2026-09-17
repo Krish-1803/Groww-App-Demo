@@ -3,7 +3,7 @@
 // projection of ₹500/mo → one-tap "Start first SIP ₹500". Works end-to-end.
 
 import { useMemo, useState } from 'react'
-import { ArrowRight, Check, PartyPopper, ShieldCheck, Sparkles } from 'lucide-react'
+import { ArrowRight, Check, PartyPopper, ShieldCheck, Sparkles, X } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import type { RiskProfile } from '../mock/types'
 import { fundById, RETURN_ASSUMPTION } from '../mock/data'
@@ -66,12 +66,23 @@ const SATELLITE: Record<RiskProfile, { fundId: string; label: string; pct: numbe
   Growth: { fundId: 'smallcap', label: 'small-cap satellite', pct: 10 },
 }
 
-export function Onboarding() {
+// Renders the quiz as a full-frame overlay when the store asks for it.
+export function OnboardingOverlay() {
+  const open = useStore((s) => s.onboardingOpen)
+  if (!open) return null
+  return (
+    <div className="no-scrollbar absolute inset-0 z-50 overflow-y-auto animate-fade-in">
+      <Onboarding />
+    </div>
+  )
+}
+
+function Onboarding() {
   const setRiskProfile = useStore((s) => s.setRiskProfile)
   const startStarter = useStore((s) => s.startStarterPortfolio)
   const addSip = useStore((s) => s.addSip)
   const complete = useStore((s) => s.completeOnboarding)
-  const setInfo = useStore((s) => s.setInfo)
+  const dismiss = useStore((s) => s.closeOnboarding)
 
   const [step, setStep] = useState(0) // 0..3 questions, 4 = result
   const [answers, setAnswers] = useState<number[]>([])
@@ -104,15 +115,21 @@ export function Onboarding() {
   const satellite = SATELLITE[profile]
 
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-gradient-to-b from-primary/10 via-canvas to-canvas px-5 pb-8 pt-10">
+    <div className="flex min-h-full flex-col bg-gradient-to-b from-primary/10 via-canvas to-canvas px-5 pb-8 pt-6">
       {/* header */}
       <div className="mb-5 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white font-extrabold">g</div>
-          <span className="font-bold text-ink">Groww · Gen Z</span>
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-teal text-white font-extrabold shadow-soft">
+            G
+          </div>
+          <span className="text-lg font-extrabold text-ink">Groww</span>
         </div>
-        <button onClick={() => setInfo(true)} className="text-xs font-medium text-muted underline">
-          About
+        <button
+          onClick={dismiss}
+          className="rounded-full bg-card p-1.5 text-muted shadow-card hover:text-ink"
+          aria-label="Close"
+        >
+          <X size={18} />
         </button>
       </div>
 
@@ -126,7 +143,7 @@ export function Onboarding() {
             />
           </div>
           <p className="mt-2 text-xs font-medium text-muted">
-            Question {step + 1} of {QUESTIONS.length} · 30-second vibe check
+            Question {step + 1} of {QUESTIONS.length} · takes 30 seconds
           </p>
         </div>
       )}

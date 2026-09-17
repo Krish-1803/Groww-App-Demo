@@ -9,7 +9,7 @@ import { BatteryFull, Wifi } from 'lucide-react'
 export function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-[100dvh] w-full items-stretch justify-center sm:items-center sm:py-6">
-      <div className="theme-surface relative flex min-h-[100dvh] w-full max-w-[440px] flex-col overflow-hidden bg-canvas shadow-lift sm:h-[956px] sm:min-h-0 sm:max-h-[calc(100dvh-3rem)] sm:w-[440px] sm:rounded-[3.4rem] sm:border-[13px] sm:border-[#0b0d12]">
+      <div className="theme-surface relative flex min-h-[100dvh] w-full max-w-[440px] flex-col overflow-hidden bg-canvas shadow-lift sm:min-h-0 sm:h-[calc(100dvh-2rem)] sm:max-h-[956px] sm:w-auto sm:aspect-[440/956] sm:rounded-[3.4rem] sm:border-[13px] sm:border-[#0b0d12]">
         <StatusBar />
         {children}
         {/* Home indicator (framed view only) */}

@@ -18,6 +18,11 @@
   --c-positive: 0 179 134; /* #00B386 */
   --c-danger: 229 72 77; /* #E5484D */
   --c-warn: 245 166 35; /* #F5A623 */
+  /* Accent shades used across cards & product tiles for a richer palette */
+  --c-blue: 83 103 255; /* indigo-blue */
+  --c-sky: 44 160 247; /* bright sky */
+  --c-yellow: 245 176 45; /* warm amber */
+  --c-purple: 124 92 240; /* violet */
 }
 
 .dark {
@@ -31,6 +36,10 @@
   --c-positive: 46 214 168;
   --c-danger: 242 112 116;
   --c-warn: 246 180 70;
+  --c-blue: 116 134 255;
+  --c-sky: 74 178 255;
+  --c-yellow: 247 189 78;
+  --c-purple: 150 122 246;
 }
 
 * {

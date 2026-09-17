@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { AlertTriangle, ArrowLeft, Check, Clock, Lock, MessageCircle, Unlock, X } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import { cx, inr } from '../lib/utils'
+import { useInvestGuard } from '../lib/useInvestGuard'
 import { BROKERAGE_FLAT } from '../mock/data'
 import { Button, Card, ComplianceLine } from '../components/primitives'
 import { BuddyChat } from '../components/Buddy'
@@ -291,18 +292,20 @@ function FnoUnlocked({
 }) {
   const tradesToday = useStore((s) => s.tradesToday)
   const recordTrade = useStore((s) => s.recordTrade)
+  const guard = useInvestGuard()
   const [overtrade, setOvertrade] = useState(false)
   const [placed, setPlaced] = useState(false)
 
-  const tryTrade = () => {
-    if (tradesToday >= 3) {
-      setOvertrade(true)
-      return
-    }
-    recordTrade()
-    setPlaced(true)
-    setTimeout(() => setPlaced(false), 1600)
-  }
+  const tryTrade = () =>
+    guard(() => {
+      if (tradesToday >= 3) {
+        setOvertrade(true)
+        return
+      }
+      recordTrade()
+      setPlaced(true)
+      setTimeout(() => setPlaced(false), 1600)
+    })
 
   return (
     <div className="space-y-4 px-4 pb-6 pt-2">
@@ -333,9 +336,9 @@ function FnoUnlocked({
           <div className="rounded-lg bg-canvas p-2"><p className="tnum font-bold text-positive">+8.3%</p><p className="text-[10px] text-muted">Day</p></div>
           <div className="rounded-lg bg-canvas p-2"><p className="tnum font-bold text-ink">75</p><p className="text-[10px] text-muted">Lot</p></div>
         </div>
-        <p className="mt-2 text-[11px] text-muted">Brokerage {inr(BROKERAGE_FLAT)} · mock chain, no real order.</p>
+        <p className="mt-2 text-[11px] text-muted">Brokerage {inr(BROKERAGE_FLAT)} · weekly expiry</p>
         <Button full className="mt-3" onClick={tryTrade}>
-          {placed ? 'Mock order placed' : 'Place mock F&O trade'}
+          {placed ? 'Order placed' : 'Place trade'}
         </Button>
       </Card>
 

@@ -3,9 +3,8 @@
 // protection nudge, learn/community teasers, transparency) toggled in.
 
 import { useNavigate } from 'react-router-dom'
-import { ArrowUpRight, BookOpen, Plus, Sparkles, TrendingUp, Users } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, BookOpen, Plus, Sparkles, TrendingUp, Users } from 'lucide-react'
 import { useStore } from '../store/useStore'
-import { IndicesStrip } from '../components/IndicesStrip'
 import { ProductGrid } from '../components/ProductGrid'
 import { StreakCard } from '../components/StreakCard'
 import { RoundUpCard } from '../components/RoundUpCard'
@@ -21,15 +20,15 @@ export function Home() {
   const invested = useStore((s) => s.investedTotal())
   const current = useStore((s) => s.currentTotal())
   const goals = useStore((s) => s.goals)
+  const onboarded = useStore((s) => s.onboarded)
+  const openOnboarding = useStore((s) => s.openOnboarding)
   const navigate = useNavigate()
 
   const pnl = current - invested
   const pnlPct = invested > 0 ? (pnl / invested) * 100 : 0
 
   return (
-    <div className="space-y-5 px-4 pb-4">
-      <IndicesStrip />
-
+    <div className="space-y-5 px-4 pb-4 pt-3">
       {/* Greeting (Gen Z only) */}
       {genZ && (
         <div className="flex items-center justify-between">
@@ -39,6 +38,23 @@ export function Home() {
           </div>
           <Sparkles size={20} className="text-primary" />
         </div>
+      )}
+
+      {/* Take-the-quiz prompt (shown until the risk quiz is done) */}
+      {!onboarded && (
+        <button
+          onClick={openOnboarding}
+          className="flex w-full items-center gap-3 rounded-2xl bg-gradient-to-r from-teal to-primary p-4 text-left text-white shadow-soft active:scale-[0.99] transition"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/20">
+            <Sparkles size={20} />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-bold">Set up your investing</p>
+            <p className="text-xs text-white/85">Take a 30-second quiz to get your starter portfolio.</p>
+          </div>
+          <ArrowRight size={18} />
+        </button>
       )}
 
       {/* Portfolio snapshot */}
@@ -186,7 +202,7 @@ export function Home() {
       </div>
 
       <Button variant="outline" full onClick={() => navigate('/mutual-funds')}>
-        <Plus size={16} /> Add money via UPI (mock)
+        <Plus size={16} /> Add money via UPI
       </Button>
     </div>
   )

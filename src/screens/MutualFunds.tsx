@@ -8,6 +8,7 @@ import { useStore } from '../store/useStore'
 import { FUNDS, fundById } from '../mock/data'
 import { sipFutureValue } from '../lib/finance'
 import { cx, inr, inrCompact } from '../lib/utils'
+import { useInvestGuard } from '../lib/useInvestGuard'
 import { Sheet } from '../components/Sheet'
 import { InvestSheet } from '../components/InvestSheet'
 import { TransparencyCard } from '../components/TransparencyCard'
@@ -17,6 +18,7 @@ import { Button, Card, ComplianceLine, SectionTitle, Sparkline } from '../compon
 export function MutualFunds() {
   const genZ = useStore((s) => s.genZMode)
   const navigate = useNavigate()
+  const guard = useInvestGuard()
   const [investFund, setInvestFund] = useState<string | null>(null)
   const [detail, setDetail] = useState<string | null>(null)
   const [calcOpen, setCalcOpen] = useState(false)
@@ -80,7 +82,7 @@ export function MutualFunds() {
 
       {/* Fund detail sheet */}
       <Sheet open={!!detail} onClose={() => setDetail(null)} title={detail ? fundById(detail).name : ''}>
-        {detail && <FundDetail fundId={detail} onInvest={() => { const id = detail; setDetail(null); setInvestFund(id) }} />}
+        {detail && <FundDetail fundId={detail} onInvest={() => { const id = detail; guard(() => { setDetail(null); setInvestFund(id) }) }} />}
       </Sheet>
 
       {/* SIP calculator */}
@@ -184,7 +186,7 @@ function SipCalculator({ open, onClose }: { open: boolean; onClose: () => void }
         </div>
 
         <ProjectionChart monthly={amount} years={years} />
-        <p className="text-[11px] text-muted">Assumes a 12% p.a. return. Illustrative, not a guarantee.</p>
+        <p className="text-[11px] text-muted">Assumes a 12% p.a. return. Returns are not guaranteed.</p>
       </div>
     </Sheet>
   )

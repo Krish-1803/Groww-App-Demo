@@ -87,8 +87,7 @@ export function TransparencySheet({ open, onClose }: { open: boolean; onClose: (
         </div>
 
         <p className="text-[11px] text-muted">
-          Figures are illustrative (assumes ~12% gross return, 31.2% tax slab). Not investment or tax
-          advice.
+          Assumes a 12% gross return and a 31.2% tax slab. Not investment or tax advice.
         </p>
         <Button full onClick={onClose}>
           Makes sense

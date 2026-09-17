@@ -3,7 +3,6 @@
 
 import { useNavigate } from 'react-router-dom'
 import { Newspaper, TrendingUp } from 'lucide-react'
-import { IndicesStrip } from '../components/IndicesStrip'
 import { Card, ComplianceLine, SectionTitle } from '../components/primitives'
 
 const DIGEST = [
@@ -16,8 +15,7 @@ const DIGEST = [
 export function Explore() {
   const navigate = useNavigate()
   return (
-    <div className="space-y-4 px-4 pb-4 pt-2">
-      <IndicesStrip />
+    <div className="space-y-4 px-4 pb-4 pt-3">
       <div className="flex items-center gap-2">
         <Newspaper size={20} className="text-teal" />
         <h1 className="text-xl font-extrabold text-ink">Groww Digest</h1>

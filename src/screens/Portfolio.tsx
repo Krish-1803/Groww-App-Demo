@@ -55,7 +55,7 @@ export function Portfolio() {
         <div className="mt-3 grid grid-cols-3 gap-2">
           <Stat label="Invested" value={inr(invested)} />
           <Stat label="Total P&L" value={`${pnl >= 0 ? '+' : ''}${inr(pnl)}`} tone={pnl >= 0 ? 'pos' : 'neg'} sub={pct(pnlPct)} />
-          <Stat label="XIRR" value={pct(xirr)} tone={xirr >= 0 ? 'pos' : 'neg'} sub="mock" />
+          <Stat label="XIRR" value={pct(xirr)} tone={xirr >= 0 ? 'pos' : 'neg'} sub="p.a." />
         </div>
       </Card>
 

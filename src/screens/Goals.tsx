@@ -7,6 +7,7 @@ import { useStore } from '../store/useStore'
 import type { Goal, GoalKind } from '../mock/types'
 import { fundById } from '../mock/data'
 import { goalIcon } from '../lib/icons'
+import { useInvestGuard } from '../lib/useInvestGuard'
 import { monthsForTarget, sipForTarget } from '../lib/finance'
 import { cx, inr, inrCompact } from '../lib/utils'
 import { Sheet } from '../components/Sheet'
@@ -37,6 +38,7 @@ function statusOf(g: Goal): { label: string; ok: boolean } {
 export function Goals() {
   const goals = useStore((s) => s.goals)
   const contribute = useStore((s) => s.contributeToGoal)
+  const guard = useInvestGuard()
   const [createOpen, setCreateOpen] = useState(false)
 
   return (
@@ -92,7 +94,7 @@ export function Goals() {
                   </div>
                 </div>
                 <div className="mt-3 flex gap-2">
-                  <Button variant="soft" size="sm" full onClick={() => contribute(g.id, g.monthlySip)}>
+                  <Button variant="soft" size="sm" full onClick={() => guard(() => contribute(g.id, g.monthlySip))}>
                     Add {inr(g.monthlySip)} now
                   </Button>
                 </div>

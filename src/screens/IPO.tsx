@@ -33,7 +33,7 @@ export function IPO() {
         </button>
         <div>
           <h1 className="text-xl font-extrabold text-ink">IPO</h1>
-          <p className="text-xs text-muted">Apply & track allotment · mock, no UPI mandate</p>
+          <p className="text-xs text-muted">Apply and track your allotment status</p>
         </div>
       </div>
 
@@ -68,7 +68,7 @@ export function IPO() {
               )}
               {ipo.applied && ipo.allotment && ipo.allotment !== 'Pending' && (
                 <div className={cx('rounded-xl p-3 text-center text-sm font-semibold', ipo.allotment === 'Allotted' ? 'bg-positive/10 text-positive' : 'bg-danger/10 text-danger')}>
-                  {ipo.allotment === 'Allotted' ? 'Allotted. Shares credited (mock)' : 'Not allotted. Refund initiated (mock)'}
+                  {ipo.allotment === 'Allotted' ? 'Allotted. Shares credited to your demat.' : 'Not allotted. Refund initiated.'}
                 </div>
               )}
             </div>
@@ -91,7 +91,7 @@ export function IPO() {
             </div>
             <ComplianceLine />
             <Button full size="lg" onClick={() => doApply(apply.id)}>
-              <Check size={16} /> Apply at cut-off (mock)
+              <Check size={16} /> Apply at cut-off price
             </Button>
           </div>
         )}

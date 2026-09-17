@@ -3,7 +3,7 @@
 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { BookOpen, Check, ChevronRight, Clock, Lock, Sparkles, X } from 'lucide-react'
+import { BookOpen, Check, ChevronRight, Clock, Flame, Lock, Sparkles, X } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import type { LearnCard } from '../mock/types'
 import { LEARN_CARDS } from '../mock/data'
@@ -11,6 +11,52 @@ import { learnIcon } from '../lib/icons'
 import { cx } from '../lib/utils'
 import { Sheet } from '../components/Sheet'
 import { Button, Card } from '../components/primitives'
+
+const WEEK = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+
+// Duolingo-style weekly streak bar: a flame + day-streak count and this week's
+// completed days.
+function LearnStreak({ doneToday }: { doneToday: boolean }) {
+  const todayIdx = (new Date().getDay() + 6) % 7 // Mon = 0 … Sun = 6
+  const streak = todayIdx + (doneToday ? 1 : 0)
+
+  return (
+    <Card className="p-4">
+      <div className="flex items-center gap-3">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-warn/15">
+          <Flame size={26} className="animate-flame text-warn" />
+        </div>
+        <div>
+          <p className="tnum text-xl font-extrabold text-ink">{streak}-day streak</p>
+          <p className="text-xs text-muted">Learn something every day.</p>
+        </div>
+      </div>
+      <div className="mt-4 flex items-center justify-between">
+        {WEEK.map((d, i) => {
+          const done = i < todayIdx || (i === todayIdx && doneToday)
+          const isToday = i === todayIdx
+          return (
+            <div key={i} className="flex flex-col items-center gap-1.5">
+              <span
+                className={cx(
+                  'flex h-8 w-8 items-center justify-center rounded-full transition',
+                  done
+                    ? 'bg-warn text-white'
+                    : isToday
+                      ? 'border-2 border-warn text-warn'
+                      : 'bg-canvas text-muted',
+                )}
+              >
+                {done && <Flame size={15} />}
+              </span>
+              <span className={cx('text-[10px]', isToday ? 'font-bold text-ink' : 'text-muted')}>{d}</span>
+            </div>
+          )
+        })}
+      </div>
+    </Card>
+  )
+}
 
 export function Learn() {
   const learned = useStore((s) => s.learnedCardIds)
@@ -30,24 +76,10 @@ export function Learn() {
         </div>
       </div>
 
-      {/* daily streak strip */}
-      <Card className="flex items-center gap-3 p-4">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-warn/15 text-warn">
-          <BookOpen size={20} />
-        </div>
-        <div className="flex-1">
-          <p className="text-sm font-bold text-ink">Daily 2-min streak</p>
-          <p className="text-xs text-muted">{doneCount} of {LEARN_CARDS.length} cards done today</p>
-        </div>
-        <div className="flex gap-1">
-          {LEARN_CARDS.map((c, i) => (
-            <span
-              key={c.id}
-              className={cx('h-2 w-2 rounded-full', i < doneCount ? 'bg-warn' : 'bg-line')}
-            />
-          ))}
-        </div>
-      </Card>
+      {/* Duolingo-style weekly streak */}
+      <LearnStreak doneToday={doneCount > 0} />
+
+      <p className="text-[11px] text-muted">{doneCount} of {LEARN_CARDS.length} lessons done today</p>
 
       <div className="space-y-3">
         {LEARN_CARDS.map((c) => {
