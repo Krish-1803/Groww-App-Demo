@@ -11,7 +11,7 @@ import { RoundUpCard } from '../components/RoundUpCard'
 import { ProtectionNudge } from '../components/ProtectionNudge'
 import { TransparencyCard } from '../components/TransparencyCard'
 import { Button, Card, CountUp, ProgressRing, SectionTitle, Sparkline } from '../components/primitives'
-import { STOCKS } from '../mock/data'
+import { STOCKS, USER } from '../mock/data'
 import { goalIcon } from '../lib/icons'
 import { cx, inr, inrCompact, pct } from '../lib/utils'
 
@@ -33,7 +33,7 @@ export function Home() {
       {genZ && (
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-lg font-extrabold text-ink">Hey Aarav</p>
+            <p className="text-lg font-extrabold text-ink">Hey {USER.name}</p>
             <p className="text-xs text-muted">Small, steady, started young. Let’s keep it going.</p>
           </div>
           <Sparkles size={20} className="text-primary" />

@@ -21,6 +21,10 @@ import type {
 export const COMPLIANCE_LINE =
   'Not investment advice. Past performance is no guarantee of future returns.'
 
+// The signed-in user. Gen Z mode is switched on by default for 20-26 year olds.
+export const USER = { name: 'Aarav', age: 22, kyc: '0000000' }
+export const isGenZAge = (age: number) => age >= 20 && age <= 26
+
 // Assumption stated up-front (used in every projection).
 export const RETURN_ASSUMPTION = 0.12 // 12% p.a. long-term equity assumption
 export const BROKERAGE_FLAT = 20 // flat ₹20 per executed order (delivery-free framing)
@@ -393,23 +397,23 @@ export const BUDDY_ANSWERS: BuddyAnswer[] = [
   },
   {
     id: 'panic',
-    intents: ['market crash', 'crash', 'crashing', 'falling', 'market down', 'panic', 'losing money', 'stop my sip', 'pause sip', 'pause my sip', 'scared', 'correction', 'should i sell everything', 'market is red'],
+    intents: ['market crash', 'crash', 'crashing', 'falling', 'market down', 'panic', 'losing money', 'stop my sip', 'pause sip', 'pause my sip', 'scared', 'correction', 'should i sell everything', 'market is red', 'just sell', 'why not sell', 'why sell', 'sell now'],
     answer:
       "Take a breath, this is normal. Markets fall roughly one year in four and have always recovered given time. Selling now just locks in the loss, while continuing your SIP means this month's instalment buys units cheaper. The investors who do well are boringly consistent, not reactive. Want to see how your ₹500/mo looks over 10 years instead of today?",
     chips: ['Show 10-year projection', 'Should I pause my SIP?', 'Why not just sell?'],
   },
   {
     id: 'concentration',
-    intents: ['diversify', 'diversification', 'concentrated', 'one fund', 'all in one', 'rebalance', 'asset allocation', 'spread my money', 'over exposed', 'too much in one'],
+    intents: ['diversify', 'diversification', 'concentrated', 'one fund', 'all in one', 'rebalance', 'asset allocation', 'spread my money', 'over exposed', 'too much in one', 'show my portfolio', 'my portfolio', 'portfolio'],
     answer:
       "Good question to ask. Right now most of your portfolio sits in a single flexi-cap fund, which is concentration risk: one bad year for that fund hits nearly everything you own. A simple fix is holding an index fund plus a little debt alongside it, so no single holding can sink you. You don't need to predict anything, just avoid betting it all on one square.",
     chips: ['How do I rebalance?', 'What is an index fund?', 'Show my portfolio'],
   },
   {
     id: 'what-is-sip',
-    intents: ['what is sip', 'sip mean', 'systematic investment', 'define sip', 'how sip works', 'explain sip'],
+    intents: ['what is sip', 'sip mean', 'systematic investment', 'define sip', 'how sip works', 'explain sip', 'start a sip', 'start sip', '500 sip', 'rupee cost averaging', 'rupee-cost', 'averaging'],
     answer:
-      "A SIP is simply investing a fixed amount on a fixed date, say ₹500 every month, instead of trying to time the market. When prices dip you automatically buy more units, and fewer when they are high, which averages out your cost. Why it matters at 22: consistency plus time does the heavy lifting, so you don't need a big amount to start.",
+      "A SIP is simply investing a fixed amount on a fixed date, say ₹500 every month, instead of trying to time the market. When prices dip you automatically buy more units, and fewer when they are high, which averages out your cost. It's the simplest way to start, and you can begin from just ₹500 a month, so consistency plus time does the heavy lifting.",
     chips: ['Start a ₹500 SIP', 'SIP vs lump sum?', 'How much should I invest?'],
   },
   {
@@ -423,7 +427,7 @@ export const BUDDY_ANSWERS: BuddyAnswer[] = [
     id: 'index-fund',
     intents: ['index fund', 'what is index', 'nifty fund', 'passive fund', 'sensex fund', 'track the market'],
     answer:
-      "An index fund just copies a basket like the Nifty 50, with no manager trying to pick winners, so its fee is very low. It won't beat the market, it simply is the market at low cost. Why it matters at 22: low costs quietly compound in your favour over decades, and you skip the stress of stock-picking.",
+      "An index fund just copies a basket like the Nifty 50, with no manager trying to pick winners, so its fee is very low. It won't beat the market, it simply is the market at low cost. Low costs quietly compound in your favour over decades, and you skip the stress of stock-picking, which is why it's a common first fund.",
     chips: ['Index vs active?', 'What is expense ratio?', 'Is it safe?'],
   },
   {
@@ -435,42 +439,42 @@ export const BUDDY_ANSWERS: BuddyAnswer[] = [
   },
   {
     id: 'expense-ratio',
-    intents: ['expense ratio', 'fund fee', 'direct plan', 'regular plan', 'commission', 'how much fee', 'cost of fund'],
+    intents: ['expense ratio', 'fund fee', 'direct plan', 'regular plan', 'commission', 'how much fee', 'cost of fund', 'what i actually pay', 'actually pay', 'what i pay', 'does 1 matter', 'how much does 1', 'fee drag'],
     answer:
-      "The expense ratio is a fund's yearly fee, shown as a small % of your money. A 'direct' plan skips distributor commission, so it costs less than the 'regular' plan of the exact same fund. On Groww, mutual funds are direct, so more of the return stays with you. Over 20 years even a 1% gap adds up to a lot.",
+      "The expense ratio is a fund's yearly fee, shown as a small % of your money. A 'direct' plan skips distributor commission, so it costs less than the 'regular' plan of the exact same fund. On Groww, mutual funds are direct, so more of the return stays with you. Over 20 years even a 1% gap adds up to a surprisingly large amount.",
     chips: ['See what I actually pay', 'What is a direct plan?', 'How much does 1% matter?'],
   },
   {
     id: 'fno',
-    intents: ['f&o', 'fno', 'futures and options', 'options trading', 'leverage', 'derivatives', 'intraday', 'call and put', 'options'],
+    intents: ['f&o', 'fno', 'futures and options', 'options trading', 'leverage', 'derivatives', 'intraday', 'call and put', 'options', 'why is it locked', 'why locked', 'locked'],
     answer:
       "F&O stands for Futures & Options: leveraged contracts where small moves get multiplied both ways. SEBI's own study found roughly 9 in 10 individual F&O traders lose money. It's speculation, not investing, and if you are still building an emergency fund it can undo years of SIPs quickly. That's why it stays locked here until you pass a short reality-check.",
     chips: ['Why is it locked?', 'What is leverage?', 'What should I do instead?'],
   },
   {
     id: 'elss',
-    intents: ['elss', '80c', 'tax saving fund', 'save tax', 'section 80c', 'tax saver'],
+    intents: ['elss', '80c', 'tax saving fund', 'save tax', 'section 80c', 'tax saver', 'lock in', 'lock-in', 'lockin', '80c nudge'],
     answer:
-      "ELSS funds are equity funds that also reduce your taxable income under Section 80C (old regime), up to ₹1.5L a year, with just a 3-year lock-in, the shortest of the 80C options. Why it matters at 22: your first salary's tax gets trimmed while the money still compounds in equity. It is still an equity fund, so its value moves with the market.",
+      "ELSS funds are equity funds that also reduce your taxable income under Section 80C (old regime), up to ₹1.5L a year, with just a 3-year lock-in, the shortest of the 80C options. So your first salary's tax gets trimmed while the money still compounds in equity. It is still an equity fund, so its value moves with the market. A lock-in simply means you can't redeem before that 3-year mark.",
     chips: ['See the 80C nudge', 'What is a lock-in?', 'How is it taxed later?'],
   },
   {
     id: 'tax-on-returns',
-    intents: ['ltcg', 'stcg', 'capital gains', 'tax on returns', 'tax on mutual fund', 'tax on profit', 'how much tax', 'taxed'],
+    intents: ['ltcg', 'stcg', 'capital gains', 'tax on returns', 'tax on mutual fund', 'tax on profit', 'how much tax', 'taxed', 'taxed later', 'gains taxed'],
     answer:
       "On equity funds, gains you make in under a year (short-term) are taxed at 20%, and gains held over a year (long-term) are taxed at 12.5% on the amount above ₹1.25L a year. Debt funds are taxed at your income-slab rate. Tax only applies when you actually redeem, not while it grows. Rules change, so treat this as a rough guide, not tax advice.",
     chips: ['What is ELSS?', 'How do I withdraw?', 'What is XIRR?'],
   },
   {
     id: 'emergency-fund',
-    intents: ['emergency fund', 'safety net', 'contingency fund', 'rainy day', 'how much emergency', 'emergency money'],
+    intents: ['emergency fund', 'safety net', 'contingency fund', 'rainy day', 'how much emergency', 'emergency money', 'emergency goal', 'start emergency', 'where do i keep', 'where to keep', 'before investing'],
     answer:
-      "An emergency fund is 3 to 6 months of expenses kept somewhere safe and boring, like a liquid fund, so a job gap or a hospital bill never forces you to sell investments at the worst time. Build this before F&O or aggressive bets. It is the least exciting and most important money you'll ever park.",
+      "An emergency fund is 3 to 6 months of expenses kept somewhere safe and boring, like a liquid fund or a high-interest savings account, so a job gap or a hospital bill never forces you to sell investments at the worst time. Build it before F&O or aggressive bets, because it's what lets you stay invested when life gets bumpy. It is the least exciting and most important money you'll ever park.",
     chips: ['Start emergency goal', 'Where do I keep it?', 'Why before investing?'],
   },
   {
     id: 'beginner',
-    intents: ['beginner', 'how do i start', 'new to investing', 'first time investing', 'where to begin', 'how to invest', 'just started', 'total beginner'],
+    intents: ['beginner', 'how do i start', 'new to investing', 'first time investing', 'where to begin', 'how to invest', 'just started', 'total beginner', 'take the quiz', 'take quiz', 'quiz', 'do instead', 'what should i do', 'what should i do instead'],
     answer:
       "Simple, boring, and started today beats clever and later. A common first setup: a small SIP into an index fund, a bit into a flexi-cap, and slowly build an emergency cushion in a liquid fund. Take the 4-question quiz and I'll help set a starter portfolio. No jargon, no pressure.",
     chips: ['Take the quiz', 'Start a ₹500 SIP', 'How much should I invest?'],
@@ -484,21 +488,21 @@ export const BUDDY_ANSWERS: BuddyAnswer[] = [
   },
   {
     id: 'returns-realistic',
-    intents: ['how much return', 'expected return', 'double my money', 'get rich', 'guaranteed return', 'average return', 'realistic return', 'become rich'],
+    intents: ['how much return', 'expected return', 'double my money', 'get rich', 'guaranteed return', 'average return', 'realistic return', 'become rich', 'guaranteed', 'is 12', '12 guaranteed', '12 percent'],
     answer:
-      "Nobody can promise a number, and anyone who does is a red flag. Indian equity has historically returned somewhere around 11-13% a year over long periods, but with big swings along the way and no guarantee. That is enough to build real wealth over 10-20 years through compounding, but not a get-rich-quick scheme. Slow and steady genuinely wins here.",
+      "Nobody can promise a number, and anyone who does is a red flag. Indian equity has historically returned somewhere around 11-13% a year over long periods, but with big swings along the way and no guarantee, so the 12% you see in projections is an assumption, not a promise. That's enough to build real wealth over 10-20 years through compounding, but it is not a get-rich-quick scheme.",
     chips: ['Show my projection', 'What is compounding?', 'Is it safe?'],
   },
   {
     id: 'compounding',
-    intents: ['compound', 'compounding', 'power of compounding', 'how much will i have', 'future value', 'ten years', '20 years', 'grow over time'],
+    intents: ['compound', 'compounding', 'power of compounding', 'how much will i have', 'future value', 'ten years', '20 years', 'grow over time', 'projection', 'my projection', 'show my projection', '10 year', 'ten year', 'invest more', 'if i invest more'],
     answer:
-      "Compounding is your returns earning their own returns. Assuming a 12% long-term return (not guaranteed), ₹500/mo for 10 years is ₹60,000 invested that could grow to around ₹1.15 lakh, with the extra coming from compounding. Stretch it to 20 years and it's roughly ₹5 lakh. Starting early is worth more than starting big.",
+      "Compounding is your returns earning their own returns. Assuming a 12% long-term return (not guaranteed), ₹500/mo for 10 years is ₹60,000 invested that could grow to around ₹1.15 lakh, with the extra coming from compounding. Stretch it to 20 years and it's roughly ₹5 lakh, and investing more each month scales that up. Starting early is worth more than starting big.",
     chips: ['Start a ₹500 SIP', 'What if I invest more?', 'Is 12% guaranteed?'],
   },
   {
     id: 'safe',
-    intents: ['is it safe', 'are mutual funds safe', 'safe to invest', 'can i lose', 'lose all my money', 'risk of mutual fund', 'safe', 'risky', 'guaranteed'],
+    intents: ['is it safe', 'are mutual funds safe', 'safe to invest', 'can i lose', 'lose all my money', 'risk of mutual fund', 'safe', 'risky'],
     answer:
       "Equity mutual funds can and do fall in the short term, so their value is not guaranteed, but a diversified fund spreads your money across dozens of companies, so it is far safer than a single stock. Over long horizons the ups have historically outweighed the downs. You control most of the risk through how long you stay invested and how diversified you are.",
     chips: ['Why is diversification safer?', 'What is an index fund?', 'Start emergency goal'],
@@ -509,6 +513,20 @@ export const BUDDY_ANSWERS: BuddyAnswer[] = [
     answer:
       "NAV (Net Asset Value) is the per-unit price of a mutual fund, updated once at the end of each trading day. A low NAV is not 'cheap' and a high NAV is not 'expensive', it just reflects the fund's history; your returns depend on the % change, not the number. So don't pick a fund because its NAV looks small.",
     chips: ['What is an index fund?', 'What is expense ratio?', 'What is XIRR?'],
+  },
+  {
+    id: 'xirr',
+    intents: ['xirr', 'annualised return', 'annualized return', 'my returns', 'return calculation', 'irr'],
+    answer:
+      "XIRR is your annualised return that accounts for money going in at different times, like monthly SIPs. A plain average can't handle instalments spread across dates, but XIRR can, so it's the fairest single number for how your investments are really doing. Comfortably beating inflation over the long run is the goal.",
+    chips: ['What is compounding?', 'What is NAV?', 'Is it safe?'],
+  },
+  {
+    id: 'etf',
+    intents: ['etf', 'etfs', 'exchange traded fund', 'what is an etf'],
+    answer:
+      "An ETF (Exchange-Traded Fund) is a basket of stocks or bonds that trades on the exchange like a single share, so its price moves through the day. Most are low-cost index trackers, similar to an index fund but bought and sold live. It's a simple, cheap way to get broad market exposure in one click.",
+    chips: ['What is an index fund?', 'What is diversification?', 'Is it safe?'],
   },
   {
     id: 'market-cap',
@@ -540,9 +558,9 @@ export const BUDDY_ANSWERS: BuddyAnswer[] = [
   },
   {
     id: 'withdraw',
-    intents: ['withdraw', 'redeem', 'take my money out', 'sell my mutual fund', 'exit fund', 'how to withdraw', 'cash out', 'redemption'],
+    intents: ['withdraw', 'redeem', 'take my money out', 'sell my mutual fund', 'exit fund', 'how to withdraw', 'cash out', 'redemption', 'exit load'],
     answer:
-      "For most open-ended funds you can redeem any day, and the money reaches your bank in about 1-3 working days. Watch two things: any exit load if you sell very soon after buying, and the tax on your gains. ELSS is the exception, with a 3-year lock-in. Ideally you withdraw when you reach the goal, not because of a scary week.",
+      "For most open-ended funds you can redeem any day, and the money reaches your bank in about 1-3 working days. Watch two things: any exit load (a small fee if you sell very soon after buying), and the tax on your gains. ELSS is the exception, with a 3-year lock-in. Ideally you withdraw when you reach the goal, not because of a scary week.",
     chips: ['How are gains taxed?', 'What is an exit load?', 'Should I sell in a crash?'],
   },
   {
@@ -562,4 +580,4 @@ export const BUDDY_ANSWERS: BuddyAnswer[] = [
 ]
 
 export const BUDDY_FALLBACK =
-  "I'd rather not guess at that one. I'm best at explaining terms (SIP, index fund, expense ratio, F&O, ELSS, NAV, LTCG), calming market-panic nerves, and sanity-checking your plan. I never give buy or sell tips. Try one of the suggestions below, or ask in a different way?"
+  "Good question. I can explain any term (SIP, index fund, expense ratio, F&O, ELSS, NAV, XIRR, LTCG), talk you through a rough market day, or sanity-check your plan, but I never give buy or sell tips. Try one of the suggestions below, or ask it a slightly different way.";

@@ -13,7 +13,9 @@ import {
   GOALS,
   HOLDINGS,
   SIPS,
+  USER,
   fundById,
+  isGenZAge,
 } from '../mock/data'
 import type { Goal, Holding, RiskProfile, SipEntry } from '../mock/types'
 
@@ -122,7 +124,7 @@ function addToHoldings(holdings: Holding[], fundId: string, amount: number): Hol
 export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
-  genZMode: true, // Gen Z layer on by default
+  genZMode: isGenZAge(USER.age), // Gen Z layer on by default for ages 20-26
   theme: 'light',
   onboarded: false,
   onboardingOpen: false,
@@ -261,7 +263,7 @@ export const useStore = create<AppState>()(
 
   reset: () =>
     set({
-      genZMode: true,
+      genZMode: isGenZAge(USER.age),
       onboarded: false,
       onboardingOpen: false,
       sessionCount: 2,

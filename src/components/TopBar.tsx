@@ -22,7 +22,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { useStore } from '../store/useStore'
-import { FUNDS, STOCKS, IPOS } from '../mock/data'
+import { FUNDS, STOCKS, IPOS, USER } from '../mock/data'
 import { cx, inr } from '../lib/utils'
 import { Sheet } from './Sheet'
 import { IndicesStrip } from './IndicesStrip'
@@ -56,7 +56,7 @@ export function TopBar({ onOpenInfo }: { onOpenInfo: () => void }) {
             className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-teal text-sm font-extrabold text-white shadow-soft"
             aria-label="Profile"
           >
-            A
+            {USER.name[0]}
             {genZ && (
               <span className="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-card">
                 <Zap size={9} className="text-teal" />
@@ -130,18 +130,18 @@ export function TopBar({ onOpenInfo }: { onOpenInfo: () => void }) {
         <div className="space-y-3">
           <div className="flex items-center gap-3 rounded-2xl bg-canvas p-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-teal text-lg font-extrabold text-white">
-              A
+              {USER.name[0]}
             </div>
             <div className="flex-1">
-              <p className="font-bold text-ink">Aarav</p>
-              <p className="text-xs text-muted">Age 22 · KYC: 0000000</p>
+              <p className="font-bold text-ink">{USER.name}</p>
+              <p className="text-xs text-muted">Age {USER.age} · KYC: {USER.kyc}</p>
             </div>
           </div>
 
           <ToggleRow
             icon={<Zap size={18} className="text-teal" />}
             title="Gen Z mode"
-            sub="Habits, learning & guardrails layer"
+            sub="On for ages 20-26 · habits, learning & guardrails"
             on={genZ}
             onToggle={toggleGenZ}
           />
